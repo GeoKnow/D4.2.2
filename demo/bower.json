@@ -4,6 +4,7 @@
   "dependencies": {
     "angular-animate": "1.3.5-build.3630+sha.30694c8",
     "jassa-ui-angular-edit": "0.9.0-SNAPSHOT",
+    "angular-smart-table": "2.0.2",
     "bluebird": "2.3.5",
     "dddi-angular": "1.0.0",
     "underscore": "1.7.0",

@@ -5,7 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <title>RDF Edit Demo</title>
+    <title>Spatial Curation Interface</title>
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
@@ -25,6 +25,7 @@
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angularjs/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/bluebird/js/browser/bluebird.js"></script>
     <script src="bower_components/jassa/jassa.js"></script>
@@ -42,9 +43,9 @@
     <script src="bower_components/selectize/dist/js/selectize.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/jassa-ui-angular-edit/jassa-ui-angular-edit-tpls.js"></script>
+    <script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/codemirror/lib/codemirror.js"></script>
-    <script src="bower_components/angularjs/angular.js"></script>
     <script src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
     <script src="bower_components/ng-stats/dist/ng-stats.js"></script>
     <!-- endbower -->
@@ -99,9 +100,11 @@
     <script type="text/javascript">
     jassa = new Jassa(Promise, $.ajax);
 
+
+
     angular.module(
         'jassa.ui.edit.demo.widgets',
-        ['dddi', 'ngSanitize', 'ui.jassa', 'ui.bootstrap', 'ui.select', 'ui.jassa.edit', 'ui.jassa.rex', 'ui.codemirror', 'ngAnimate'])
+        ['dddi', 'smart-table', 'ngSanitize', 'ui.jassa', 'ui.bootstrap', 'ui.select', 'ui.jassa.edit', 'ui.jassa.rex', 'ui.codemirror', 'ngAnimate'])
 
     // This is deprecated
     //     .config(['$parseProvider', function($parseProvider) {
@@ -190,6 +193,135 @@
 
     .controller('AppCtrl', ['$scope', '$dddi', '$location', '$anchorScroll', '$timeout', '$http', '$q',
         function($scope, $dddi, $location, $anchorScroll, $timeout, $http, $q) {
+
+          var concept = new jassa.sparql.Concept(
+            jassa.sparql.ElementString.create('?s a <http://fp7-pp.publicdata.eu/ontology/Partner>'),
+            jassa.rdf.NodeFactory.createVar('s'));
+
+          var sparqlService = jassa.service.SparqlServiceBuilder
+            .http('http://fp7-pp.publicdata.eu/sparql', ['http://fp7-pp.publicdata.eu/'], {type: 'POST'})
+            .create();
+
+          jassa.service.ServiceUtils.fetchItemsConcept(sparqlService, concept, 10).then(function(nodes) {
+            console.log('Partner:', JSON.stringify(nodes));
+
+            var query = new jassa.sparql.Query();
+            var s = jassa.rdf.NodeFactory.createUri(nodes[1].uri);
+            var p = jassa.rdf.NodeFactory.createVar('p');
+            var o = jassa.rdf.NodeFactory.createVar('o');
+
+            var triple = new jassa.rdf.Triple(s, p, o);
+
+            query.getProject().add(p);
+            query.getProject().add(o);
+            query.setQueryPattern(new jassa.sparql.ElementTriplesBlock([triple]));
+            query.setLimit(100);
+            console.log('sparql query', query.toString());
+
+            var qe = sparqlService.createQueryExecution(query);
+
+            qe.execSelect()
+              .then(function(rs) {
+                console.log('results for subject', rs);
+                var properties = {};
+                while(rs.hasNext()) {
+                  var binding = rs.nextBinding();
+                  properties[binding.get(p).getUri()] = binding.get(o).isUri() ? binding.get(o).getUri() : binding.get(o).getLiteral().toString();
+                }
+                console.log('properties', properties);
+              })
+          }, function() {
+            console.log('Fail');
+          });
+
+
+          var store = new jassa.sponate.StoreFacade(sparqlService, {
+            // add new prefixes
+            'fp7o': 'http://fp7-pp.publicdata.eu/ontology/'
+          });
+
+
+          store.addMap({
+            name: 'projects',
+            template: [{
+              id: '?s',
+              name: '?l',
+              address: {
+                id: '?address',
+                city: '?city',
+                country: '?country'
+              }
+            }],
+            from: '?s a fp7o:Partner ; rdfs:label ?l ; fp7o:address ?address . ?address fp7o:city ?city . ?address fp7o:country ?country'
+          });
+
+          store.projects.getListService().fetchItems(null, 10).then(function(entries) {
+            entries.then(function(response) {
+              console.log('ENTRIES: ', response);
+
+              var cityUri = response[0].val.address.city
+              var cityLabel = cityUri.substr(cityUri.lastIndexOf('/') + 1);
+              console.log('Address for first entry: ', cityLabel);
+              var promise = restServiceRequest('Nominatim', cityLabel);
+              promise.then(function(response) {
+                console.log('Possible values for first city for first entry', response);
+              });
+              $scope.rowCollection = response;
+              $scope.displayedCollection = [].concat($scope.rowCollection);
+            })
+          });
+
+          var defaultServices = {
+            Nominatim: {
+              label: 'Nominatim',
+              serviceType: 'rest',
+              url: 'http://nominatim.openstreetmap.org/search/?format=json&polygon_text=1&q=',
+              data: {
+                format: 'json',
+                polygon_text: '1',
+                q: '%KEYWORD%'
+              },
+              fnSuccess: function(response) {
+                var data = response.data;
+                var resultSet = [];
+                for (var i in data) {
+                  if (data[i].hasOwnProperty('geotext')) {
+                    resultSet.push({
+                      firstInGroup: false,
+                      wkt: data[i].geotext,
+                      label: data[i].display_name,
+                      group: 'Nominatim'
+                    });
+                  }
+                }
+                return resultSet;
+              }
+            }
+          };
+
+          var restServiceRequest = function(service, keyword) {
+            var queryString = queryData(defaultServices[service].data).replace(/%KEYWORD%/gi,keyword);
+            return $http({
+              'method': 'GET',
+              'url': defaultServices[service].url+'?'+queryString,
+              'cache': true,
+              'headers' : {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+          };
+
+          var queryData = function(data) {
+            var ret = [];
+            for (var d in data) {
+              ret.push(d + '=' + data[d]);
+            }
+            return ret.join('&');
+          };
+
+
+        $scope.rowCollection = [];
 
         var dddi = $dddi($scope);
 
@@ -322,7 +454,7 @@
             var talis = graph ? jassa.io.TalisRdfJsonUtils.triplesToTalisRdfJson(graph) : null;
             var r = talis ? jassa.io.TalisRdfJsonUtils.talisRdfJsonToTurtle(talis, prefixMapping) : '';
             return r;
-        }
+        };
         // End of REX Setup
 
         // Some Utils for geo stuff
@@ -402,20 +534,48 @@
         //showAngularStats();
     }]);
 
-
-
-
     </script>
 </head>
 
 
 <body ng-controller="AppCtrl">
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-
-        </div>
+<header>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <span class="navbar-brand" href="#">Spatial Curation Interface</span>
+        <ul class="nav navbar-nav">
+          <li><a href="#"></a></li>
+        </ul>
+      </div>
     </div>
+  </nav>
+</header>
+<div style="padding-top: 60px;" class="container-fluid">
+  <div class="row">
+    <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+      <thead>
+      <tr>
+        <th st-sort="subject">partner</th>
+        <th st-sort="address">address</th>
+        <th st-sort="country">country</th>
+        <th st-sort="city">city</th>
+      </tr>
+      <tr>
+        <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in rowCollection">
+        <td>{{row.val.id}}</td>
+        <td>{{row.val.address.id}}</td>
+        <td>{{row.val.address.country}}</td>
+        <td>{{row.val.address.city}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 </body>
 
