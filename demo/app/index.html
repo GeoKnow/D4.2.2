@@ -255,7 +255,7 @@
             from: '?s a fp7o:Partner ; rdfs:label ?l ; fp7o:address ?address . ?address fp7o:city ?city . ?address fp7o:country ?country'
           });
 
-          store.projects.getListService().fetchItems(null, 10).then(function(entries) {
+          store.projects.getListService().fetchItems(null, 100).then(function(entries) {
             entries.then(function(response) {
               console.log('ENTRIES: ', response);
 
@@ -265,6 +265,7 @@
               var promise = restServiceRequest('Nominatim', cityLabel);
               promise.then(function(response) {
                 console.log('Possible values for first city for first entry', response);
+                $scope.locationSuggestions = response.data;
               });
               $scope.rowCollection = response;
               $scope.displayedCollection = [].concat($scope.rowCollection);
@@ -320,8 +321,21 @@
             return ret.join('&');
           };
 
-
         $scope.rowCollection = [];
+
+        $scope.person = {};
+        $scope.people = [
+          { name: 'Adam',      email: 'adam@email.com',      age: 10 },
+          { name: 'Amalie',    email: 'amalie@email.com',    age: 12 },
+          { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30 },
+          { name: 'Samantha',  email: 'samantha@email.com',  age: 31 },
+          { name: 'Estefanía', email: 'estefanía@email.com', age: 16 },
+          { name: 'Natasha',   email: 'natasha@email.com',   age: 54 },
+          { name: 'Nicole',    email: 'nicole@email.com',    age: 43 },
+          { name: 'Adrian',    email: 'adrian@email.com',    age: 21 }
+        ];
+
+        $scope.location = '';
 
         var dddi = $dddi($scope);
 
@@ -570,7 +584,22 @@
         <td>{{row.val.id}}</td>
         <td>{{row.val.address.id}}</td>
         <td>{{row.val.address.country}}</td>
-        <td>{{row.val.address.city}}</td>
+        <td>
+          <div>
+            {{row.val.address.city}}
+          </div>
+          <div>
+            <ui-select ng-model="location.selected" theme="bootstrap">
+              <ui-select-match placeholder="Select a spatial suggestions">{{$select.selected.geotext}}</ui-select-match>
+              <ui-select-choices repeat="location in locationSuggestions">
+                <div ng-bind-html="location.display_name | highlight: $select.search"></div>
+                <small>
+                  WKT: {{location.geotext}}
+                </small>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>
