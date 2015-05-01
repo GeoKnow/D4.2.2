@@ -249,17 +249,20 @@
               address: {
                 id: '?address',
                 city: '?city',
-                country: '?country'
+                country: '?country',
+                geocoding: {
+                  city: ''
+                }
               }
             }],
             from: '?s a fp7o:Partner ; rdfs:label ?l ; fp7o:address ?address . ?address fp7o:city ?city . ?address fp7o:country ?country'
           });
 
-          store.projects.getListService().fetchItems(null, 100).then(function(entries) {
+          store.projects.getListService().fetchItems(null, 10).then(function(entries) {
             entries.then(function(response) {
               console.log('ENTRIES: ', response);
 
-              var cityUri = response[0].val.address.city
+              var cityUri = response[0].val.address.city;
               var cityLabel = cityUri.substr(cityUri.lastIndexOf('/') + 1);
               console.log('Address for first entry: ', cityLabel);
               var promise = restServiceRequest('Nominatim', cityLabel);
@@ -323,224 +326,37 @@
 
         $scope.rowCollection = [];
 
-        $scope.person = {};
-        $scope.people = [
-          { name: 'Adam',      email: 'adam@email.com',      age: 10 },
-          { name: 'Amalie',    email: 'amalie@email.com',    age: 12 },
-          { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30 },
-          { name: 'Samantha',  email: 'samantha@email.com',  age: 31 },
-          { name: 'Estefanía', email: 'estefanía@email.com', age: 16 },
-          { name: 'Natasha',   email: 'natasha@email.com',   age: 54 },
-          { name: 'Nicole',    email: 'nicole@email.com',    age: 43 },
-          { name: 'Adrian',    email: 'adrian@email.com',    age: 21 }
-        ];
-
         $scope.location = '';
 
-        var dddi = $dddi($scope);
+        var extractLocation = function(string) {
+          return string.substr(string.lastIndexOf('/') + 1).replace(/-/gi,' ');
+        };
 
-        $scope.JSON = JSON;
+        $scope.runGeocoderForLocation = function(locationUri) {
+          var extractedLocation = extractLocation(locationUri);
+          restServiceRequest('Nominatim', extractedLocation).then(function(geocoderResult) {
+            console.log('Possible values for first city for first entry ' + locationUri, geocoderResult);
+            $scope.locationSuggestions[locationUri] = geocoderResult.data;
+          });
+        };
 
-        // Begin of REX Setup
+        $scope.testfunction = function(item, model) {
+          console.log('item, model, rows', item, model);
+          console.log('rowCollection', $scope.rowCollection);
+        };
 
-        $scope.defaultNgModelOptions = {
-            //updateOn: 'default blur',
-            debounce: {
-                'default': 300,
-                'blur': 0
+        $scope.testfunction2 = function(label) {
+          var cache = {
+            'http://fp7-pp.publicdata.eu/resource/city/Albania-TIRANA': {
+              geotext: 'POLYGON',
+              display_name: 'Tirana'
+            },
+            'http://fp7-pp.publicdata.eu/resource/city/Argentina-CORDOBA': {
+              geotext: 'POINT',
+              display_name: 'Cordoba'
             }
-        };
-
-        $scope.editCounter = 0;
-
-        $scope.datasetSparqlService = jassa.service.SparqlServiceBuilder
-            .http('http://localhost:8870/sparql', ['http://datasets.org/'], {type: 'POST'})
-            .create();
-
-
-
-
-
-        dddi.register('sparqlService', ['editCounter', function() {
-            var r = jassa.service.SparqlServiceBuilder
-                //.http('http://dbpedia.org/sparql', ['http://dbpedia.org'], {type: 'POST'})
-                .http('http://akswnc3.informatik.uni-leipzig.de/data/jassa/sparql', ['http://dbpedia.org'], {type: 'POST'})
-                //.http('http://localhost/data/pokedex/sparql', ['http://pokedex.org/'], {type: 'POST'})
-                .virtFix().paginate(50000).pageExpand(100).create();
-
-            return r;
-        }]);
-
-
-        // TODO Somehow update .cache() on update
-
-        var updateService = new jassa.service.SparqlUpdateHttp('http://akswnc3.informatik.uni-leipzig.de/data/jassa/sparql', ['http://dbpedia.org']);
-
-        $scope.UpdateUtils = jassa.service.UpdateUtils;
-
-        console.log('UpdateUtils: ', $scope.UpdateUtils);
-
-
-        $scope.performUpdate = function(rexContext, prefixMapping, form) {
-            //var updateService = $scope.active.service.updateService;
-
-            var x = jassa.service.UpdateUtils.performUpdate(updateService, rexContext.diff, prefixMapping)
-            .then(function() {
-                form.$setPristine();
-                var r = rexContext.reset();
-                return r;
-            });
-
-            // Note: Only when the update is successful do we reset the form to pristine
-            // This will retain edits in case of failure
-            $q.when(x).then(function() {
-                ++$scope.editCounter;
-                //alert('Update successful');
-            }, function(e) {
-                ++$scope.editCounter;
-                //alert('Update failed with reason: ' + e.responseText);
-            });
-        };
-
-/*
-        $scope.performUpdate = function(diff, prefixMapping) {
-            var str;
-            str = $scope.createDeleteRequest(diff.removed, prefixMapping);
-            var p1 = updateService.createUpdateExecution(str).execUpdate();
-
-            str = $scope.createInsertRequest(diff.added, prefixMapping);
-            var p2 = updateService.createUpdateExecution(str).execUpdate();
-
-            Promise.all([p1, p2]).then(function() {
-                alert('Success - I will now refresh - ya, will make that nicer soon');
-                location.reload();
-            }, function() {
-                alert('Failed');
-            });
-
-            /*
-            var request = $http({
-                method: 'post',
-                url: "api/index.cfm",
-                params: {
-                action: "get"
-                }
-            });* /
-
-            //$http
-
-        };
-
-        $scope.createInsertRequest = function(graph, prefixMapping) {
-            var result;
-            if(graph) {
-                var quads = jassa.sparql.QuadUtils.triplesToQuads(graph);
-                result = '' + new jassa.sparql.UpdateDataInsert(quads);
-            } else {
-                result = '';
-            }
-            return result;
-        };
-
-        $scope.createDeleteRequest = function(graph, prefixMapping) {
-            var result;
-            if(graph) {
-                var quads = jassa.sparql.QuadUtils.triplesToQuads(graph);
-                result = '' + new jassa.sparql.UpdateDataDelete(quads);
-            } else {
-                result = '';
-            }
-            return result;
-        };
-*/
-
-        $scope.lookupFn = function(node) {
-            var result = jassa.service.ServiceUtils.execDescribeViaSelect(sparqlService, [node]);
-            return result;
-        };
-
-        $scope.newGraph = function() {
-            return new jassa.rdf.GraphImpl();
-        };
-
-
-        $scope.graphToTurtle = function(graph, prefixMapping) {
-            var talis = graph ? jassa.io.TalisRdfJsonUtils.triplesToTalisRdfJson(graph) : null;
-            var r = talis ? jassa.io.TalisRdfJsonUtils.talisRdfJsonToTurtle(talis, prefixMapping) : '';
-            return r;
-        };
-        // End of REX Setup
-
-        // Some Utils for geo stuff
-        $scope.PointUtils = jassa.geo.PointUtils;
-
-
-        // Helper for date parsing / serialization
-        // !!! Does not actually produce date strings as demanded by xsd date(Time) !!!
-        // !!! Its just a proof of concept !!!
-        // TODO integrate moment.js
-        // Native Javascript Date features seem to be insanely useless when it comes to RDF :/
-        $scope.dateToString = function(x) {
-            var r = !x ? null : moment(x).toISOString();
-            //var r = !x ? null : x.toUTCString();
-            return r;
-        };
-
-        $scope.parseDate = function(x) {
-            var r = !x ? null : moment(x).toDate();
-            //var r = !x ? null : new Date(x);
-            return r;
-        };
-
-
-        // Helper to keep an input field at the top of the page
-        $scope.scrollTo = function(target) {
-            $timeout(function() {
-                $location.hash(target);
-                $anchorScroll();
-            }, 50);
-        };
-
-        // Code mirror setup
-        $scope.editorOptions = {
-            ttl: {
-                lineWrapping : true,
-                lineNumbers: true,
-                tabMode: 'indent',
-                matchBrackets: true,
-                mode: 'text/turtle',
-                readOnly: true
-            }
-        };
-
-        // Angular UI date picker set up
-        $scope.dp = {};
-
-        $scope.clear = function () {
-            $scope.dt = null;
-        };
-
-        // Disable weekend selection
-        $scope.disabled = function(date, mode) {
-            return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-        };
-
-        $scope.toggleMin = function() {
-            $scope.minDate = $scope.minDate ? null : new Date();
-        };
-        $scope.toggleMin();
-
-        $scope.dp.opened = false;
-        $scope.open = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            $scope.dp.opened = true;
-        };
-
-        $scope.dateOptions = {
-            formatYear: 'yyyy',
-            startingDay: 1
+          };
+          return [].push(cache[label]);
         };
 
         $scope.copy = angular.copy;
@@ -589,9 +405,17 @@
             {{row.val.address.city}}
           </div>
           <div>
-            <ui-select ng-model="location.selected" theme="bootstrap">
+            <ui-select ng-model="row.val.address.geocoding.city.selected" theme="bootstrap" on-select="testfunction($item, $model)">
               <ui-select-match placeholder="Select a spatial suggestions">{{$select.selected.geotext}}</ui-select-match>
-              <ui-select-choices repeat="location in locationSuggestions">
+              <!--ui-select-choices repeat="location in testfunction2(row.val.address.city)">
+                <div ng-bind-html="location.display_name | highlight: $select.search"></div>
+                <small>
+                  WKT: {{location.geotext}}
+                </small>
+              </ui-select-choices-->
+              <ui-select-choices repeat="location in locationSuggestions[row.val.address.city] track by $index"
+                                 refresh="runGeocoderForLocation(row.val.address.city)"
+                                 refresh-delay="0">
                 <div ng-bind-html="location.display_name | highlight: $select.search"></div>
                 <small>
                   WKT: {{location.geotext}}
