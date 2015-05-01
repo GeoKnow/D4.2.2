@@ -258,7 +258,7 @@
             from: '?s a fp7o:Partner ; rdfs:label ?l ; fp7o:address ?address . ?address fp7o:city ?city . ?address fp7o:country ?country'
           });
 
-          store.projects.getListService().fetchItems(null, 10).then(function(entries) {
+          store.projects.getListService().fetchItems(null, 20).then(function(entries) {
             entries.then(function(response) {
               console.log('ENTRIES: ', response);
 
@@ -268,7 +268,6 @@
               var promise = restServiceRequest('Nominatim', cityLabel);
               promise.then(function(response) {
                 console.log('Possible values for first city for first entry', response);
-                $scope.locationSuggestions = response.data;
               });
               $scope.rowCollection = response;
               $scope.displayedCollection = [].concat($scope.rowCollection);
@@ -325,6 +324,7 @@
           };
 
         $scope.rowCollection = [];
+        $scope.locationSuggestions = {};
 
         $scope.location = '';
 
@@ -334,10 +334,13 @@
 
         $scope.runGeocoderForLocation = function(locationUri) {
           var extractedLocation = extractLocation(locationUri);
-          restServiceRequest('Nominatim', extractedLocation).then(function(geocoderResult) {
-            console.log('Possible values for first city for first entry ' + locationUri, geocoderResult);
-            $scope.locationSuggestions[locationUri] = geocoderResult.data;
-          });
+          if (!$scope.locationSuggestions.hasOwnProperty(locationUri)) {
+            console.log('yes, ' + locationUri + ' was already fetched.');
+            restServiceRequest('Nominatim', extractedLocation).then(function(geocoderResult) {
+              console.log('Possible values for first city for first entry ' + locationUri, geocoderResult);
+              $scope.locationSuggestions[locationUri] = geocoderResult.data;
+            });
+          }
         };
 
         $scope.testfunction = function(item, model) {
