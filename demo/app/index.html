@@ -333,6 +333,18 @@
           return string.substr(string.lastIndexOf('/') + 1).replace(/-/gi,' ');
         };
 
+        var setGeocodeForSameLocations = function(location, geocode) {
+          for (var i in $scope.rowCollection) {
+            var currLocation = $scope.rowCollection[i].val.address.city;
+            if (location === currLocation) {
+              console.log('same city as clicked', $scope.rowCollection[i].val.address.id);
+              $scope.rowCollection[i].val.address.geocoding.city = {
+                selected : geocode
+              }
+            }
+          }
+        };
+
         $scope.runGeocoderForLocation = function(locationUri) {
           var extractedLocation = extractLocation(locationUri);
           if (!$scope.locationSuggestions.hasOwnProperty(locationUri)) {
@@ -344,9 +356,11 @@
           }
         };
 
-        $scope.testfunction = function(item, model) {
-          console.log('item, model, rows', item, model);
+        $scope.setGeocode = function(item, city) {
+          console.log('item', item);
+          console.log('city', city);
           console.log('rowCollection', $scope.rowCollection);
+          setGeocodeForSameLocations(city, item);
         };
 
         $scope.testfunction2 = function(label) {
@@ -409,7 +423,7 @@
           </div>
           <!-- disabled
           <div>
-            <ui-select ng-model="row.val.address.geocoding.country.selected" theme="bootstrap" on-select="testfunction($item, $model)">
+            <ui-select ng-model="row.val.address.geocoding.country.selected" theme="bootstrap" on-select="setGeocode($item, country)">
               <ui-select-match placeholder="Select a spatial suggestions">{{$select.selected.geotext}}</ui-select-match>
               <ui-select-choices repeat="location in locationSuggestions[row.val.address.country] track by $index"
                                  refresh="runGeocoderForLocation(row.val.address.country)"
@@ -427,7 +441,7 @@
             {{row.val.address.city}}
           </div>
           <div>
-            <ui-select ng-model="row.val.address.geocoding.city.selected" theme="bootstrap" on-select="testfunction($item, $model)">
+            <ui-select ng-model="row.val.address.geocoding.city.selected" theme="bootstrap" on-select="setGeocode($item, row.val.address.city)">
               <ui-select-match placeholder="Select a spatial suggestions">{{$select.selected.geotext}}</ui-select-match>
               <!--ui-select-choices repeat="location in testfunction2(row.val.address.city)">
                 <div ng-bind-html="location.display_name | highlight: $select.search"></div>
