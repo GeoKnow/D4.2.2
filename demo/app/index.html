@@ -251,7 +251,8 @@
                 city: '?city',
                 country: '?country',
                 geocoding: {
-                  city: ''
+                  city: '',
+                  country: ''
                 }
               }
             }],
@@ -402,7 +403,25 @@
       <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in rowCollection">
         <td>{{row.val.id}}</td>
         <td>{{row.val.address.id}}</td>
-        <td>{{row.val.address.country}}</td>
+        <td>
+          <div>
+            {{row.val.address.country}}
+          </div>
+          <!-- disabled
+          <div>
+            <ui-select ng-model="row.val.address.geocoding.country.selected" theme="bootstrap" on-select="testfunction($item, $model)">
+              <ui-select-match placeholder="Select a spatial suggestions">{{$select.selected.geotext}}</ui-select-match>
+              <ui-select-choices repeat="location in locationSuggestions[row.val.address.country] track by $index"
+                                 refresh="runGeocoderForLocation(row.val.address.country)"
+                                 refresh-delay="0">
+                <div ng-bind-html="location.display_name | highlight: $select.search"></div>
+                <small>
+                  WKT: {{location.geotext}}
+                </small>
+              </ui-select-choices>
+            </ui-select>
+          </div>-->
+        </td>
         <td>
           <div>
             {{row.val.address.city}}
