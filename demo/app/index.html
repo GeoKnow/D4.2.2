@@ -333,6 +333,10 @@
           return string.substr(string.lastIndexOf('/') + 1).replace(/-/gi,' ');
         };
 
+        var extractLocationsLocalPart = function(string) {
+          return string.substr(string.lastIndexOf('/') + 1);
+        };
+
         var setGeocodeForSameLocations = function(location, geocode) {
           for (var i in $scope.rowCollection) {
             var currLocation = $scope.rowCollection[i].val.address.city;
@@ -361,21 +365,55 @@
           console.log('city', city);
           console.log('rowCollection', $scope.rowCollection);
           setGeocodeForSameLocations(city, item);
+          addNewTriplesForLocation(city, item.geotext);
         };
 
-        $scope.testfunction2 = function(label) {
-          var cache = {
-            'http://fp7-pp.publicdata.eu/resource/city/Albania-TIRANA': {
-              geotext: 'POLYGON',
-              display_name: 'Tirana'
-            },
-            'http://fp7-pp.publicdata.eu/resource/city/Argentina-CORDOBA': {
-              geotext: 'POINT',
-              display_name: 'Cordoba'
-            }
-          };
-          return [].push(cache[label]);
+        $scope.newGraph = function() {
+          return new jassa.rdf.GraphImpl();
         };
+
+        $scope.graphToTurtle = function(graph, prefixMapping) {
+          var talis = graph ? jassa.io.TalisRdfJsonUtils.triplesToTalisRdfJson(graph) : null;
+          var r = talis ? jassa.io.TalisRdfJsonUtils.talisRdfJsonToTurtle(talis, prefixMapping) : '';
+          return r;
+        };
+
+        // Code mirror setup
+        $scope.editorOptions = {
+          ttl: {
+            lineWrapping : true,
+            lineNumbers: true,
+            tabMode: 'indent',
+            matchBrackets: true,
+            mode: 'text/turtle',
+            readOnly: true
+          }
+        };
+
+        $scope.sparqlUpdateTriples = [];
+
+        var addNewTriplesForLocation = function(locationUri, geocodeAsWkt) {
+          var prefix = {
+            geom: 'http://geovocab.org/geometry#',
+            geocoder: 'http://geocoder.org/geometry#',
+            ogc: 'http://www.opengis.net/ont/geosparql#'
+          };
+          var s = jassa.rdf.NodeFactory.createUri(locationUri);
+          var p = jassa.rdf.NodeFactory.createUri(prefix.geom + 'geometry');
+          var newLocationUri = jassa.rdf.NodeFactory.createUri(prefix.geocoder + extractLocationsLocalPart(locationUri));
+
+          var asWKT = jassa.rdf.NodeFactory.createUri(prefix.ogc + 'asWKT');
+          var newLocationGeocode = jassa.rdf.NodeFactory.createPlainLiteral(geocodeAsWkt);
+
+          var quad1 = new jassa.sparql.Quad(null, s, p, newLocationUri);
+          var quad2 = new jassa.sparql.Quad(null, newLocationUri, asWKT, newLocationGeocode);
+          $scope.sparqlUpdateTriples.push(quad1);
+          $scope.sparqlUpdateTriples.push(quad2);
+
+          console.log('sparqlUpdateTriples', $scope.sparqlUpdateTriples);
+        };
+
+
 
         $scope.copy = angular.copy;
 
@@ -464,11 +502,30 @@
             </td>
           </tr>
           </tbody>
+          <tfoot>
+          <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4">
+            </td>
+          </tr>
+          </tfoot>
         </table>
       </div>
     </tab>
     <tab heading="SPARQL UPDATE QUERY">
-      <span>SPARQL UPDATE HERE</span>
+      <h3>Output</h3>
+
+      <div
+        ui-codemirror="editorOptions.ttl"
+        ng-model="turtle"
+        sync-template="{{graphToTurtle(sparqlUpdateTriples)}}">
+      </div>
+      <hr />
+      <span>Added:</span>
+      <div
+        ui-codemirror="editorOptions.ttl"
+        ng-model="turtle"
+        sync-template="{{UpdateUtils.createInsertRequest(rexContext.diff.added, rexPrefixMapping)}}"
+        ></div>
     </tab>
   </tabset>
 
