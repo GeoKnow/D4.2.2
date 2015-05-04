@@ -407,8 +407,19 @@
 
           var quad1 = new jassa.sparql.Quad(null, s, p, newLocationUri);
           var quad2 = new jassa.sparql.Quad(null, newLocationUri, asWKT, newLocationGeocode);
-          $scope.sparqlUpdateTriples.push(quad1);
-          $scope.sparqlUpdateTriples.push(quad2);
+
+          var locationUriInGraph = _.find($scope.sparqlUpdateTriples, function(quad) {
+            return quad.subject.uri === locationUri;
+          });
+
+          console.log('hasLocationInfo', locationUriInGraph);
+          if (locationUriInGraph === undefined) {
+            // insert new quads
+            $scope.sparqlUpdateTriples.push(quad1);
+            $scope.sparqlUpdateTriples.push(quad2);
+          } else {
+            // delete old qudas and insert new quads
+          }
 
           console.log('sparqlUpdateTriples', $scope.sparqlUpdateTriples);
         };
@@ -524,7 +535,7 @@
       <div
         ui-codemirror="editorOptions.ttl"
         ng-model="turtle"
-        sync-template="{{UpdateUtils.createInsertRequest(rexContext.diff.added, rexPrefixMapping)}}"
+        sync-template="{{UpdateUtils.createInsertRequest(sparqlUpdateTriples)}}"
         ></div>
     </tab>
   </tabset>
