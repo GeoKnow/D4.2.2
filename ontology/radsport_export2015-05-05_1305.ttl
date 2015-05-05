@@ -1,0 +1,1026 @@
+# Exported with the Erfurt API - http://aksw.org/Projects/Erfurt
+
+@base <http://www.clelicy.de/Radsport_Ontologie> .
+@prefix sysont: <http://ns.ontowiki.net/SysOnt/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dbpedia: <http://dbpedia.org/ontology/> .
+@prefix schema: <http://schema.org/> .
+@prefix radsport_ontologie: <http://www.clelicy.de/radsport_ontologie#> .
+
+sysont:SparqlQuery a rdfs:Class ;
+                   rdfs:label "Query" ;
+                   rdfs:domain <http://www.clelicy.de/Radsport_Ontologie> .
+
+<http://www.clelicy.de/Radsport_Ontologie> a owl:Ontology ;
+                                           rdfs:label "Radsport" .
+
+<http://www.clelicy.de/Radsport_Ontologie#Query-419621ee8f6a6cd7638d81129b86ab18> a sysont:SparqlQuery ;
+                                                                                  sysont:Model <http://www.clelicy.de/Radsport_Ontologie> ;
+                                                                                  <http://purl.org/dc/elements/1.1/title> "name of query" ;
+                                                                                  <http://purl.org/dc/elements/1.1/created> "2014-04-01T00:29:18+02:00"^^xsd:dateTime ;
+                                                                                  <http://rdfs.org/sioc/ns#num_views> "1"^^xsd:integer ;
+                                                                                  sysont:sparql_code """PREFIX sysont: <http://ns.ontowiki.net/SysOnt/>
+PREFIX radsport_ontologie: <http://www.clelicy.de/radsport_ontologie#>
+PREFIX schema: <http://schema.org/>
+PREFIX dbpedia: <http://dbpedia.org/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?Class
+FROM <http://www.clelicy.de/Radsport_Ontologie> 
+WHERE { 
+    ?Class rdf:type owl:Class
+}
+LIMIT 35""" ;
+                                                                                  sysont:generator "qe" ;
+                                                                                  <http://rdfs.org/sioc/ns#id> "419621ee8f6a6cd7638d81129b86ab18" ;
+                                                                                  <http://rdfs.org/sioc/ns#has_creator> <http://localhost/OntoWiki/Config/Admin> .
+
+<http://www.clelicy.de/Radsport_Ontologie#Query-87e28c208593cb139e0c9118b970c234> a sysont:SparqlQuery ;
+                                                                                  sysont:Model <http://www.clelicy.de/Radsport_Ontologie> ;
+                                                                                  <http://purl.org/dc/elements/1.1/title> "name of query" ;
+                                                                                  <http://purl.org/dc/elements/1.1/created> "2014-03-28T15:55:17+01:00"^^xsd:dateTime ;
+                                                                                  <http://rdfs.org/sioc/ns#num_views> "1"^^xsd:integer ;
+                                                                                  sysont:sparql_code """PREFIX radsport_ontologie: <http://www.clelicy.de/radsport_ontologie#>
+PREFIX schema: <http://schema.org/>
+PREFIX dbpedia: <http://dbpedia.org/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT DISTINCT ?Class  
+FROM <http://www.clelicy.de/Radsport_Ontologie> 
+WHERE { 
+?resourceUri ?p ?o 
+OPTIONAL { 
+?resourceUri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?Class
+}  
+
+}
+LIMIT 100""" ;
+                                                                                  sysont:generator "qe" ;
+                                                                                  <http://rdfs.org/sioc/ns#id> "87e28c208593cb139e0c9118b970c234" ;
+                                                                                  <http://rdfs.org/sioc/ns#has_creator> <http://localhost/OntoWiki/Config/Admin> .
+
+<http://www.clelicy.de/Radsport_Ontologie#Query-f1e2f2aef53bc3fc58fe1a1bc756390e> a sysont:SparqlQuery ;
+                                                                                  sysont:Model <http://www.clelicy.de/Radsport_Ontologie> ;
+                                                                                  <http://purl.org/dc/elements/1.1/title> "name of query" ;
+                                                                                  <http://purl.org/dc/elements/1.1/created> "2014-03-28T15:53:24+01:00"^^xsd:dateTime ;
+                                                                                  <http://rdfs.org/sioc/ns#num_views> "1"^^xsd:integer ;
+                                                                                  sysont:sparql_code """PREFIX radsport_ontologie: <http://www.clelicy.de/radsport_ontologie#>
+PREFIX schema: <http://schema.org/>
+PREFIX dbpedia: <http://dbpedia.org/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT DISTINCT ?Concept  
+FROM <http://www.clelicy.de/Radsport_Ontologie> 
+WHERE { 
+?resourceUri ?p ?o 
+OPTIONAL { 
+?resourceUri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?Concept 
+}  
+
+}
+LIMIT 100""" ;
+                                                                                  sysont:generator "qe" ;
+                                                                                  <http://rdfs.org/sioc/ns#id> "f1e2f2aef53bc3fc58fe1a1bc756390e" ;
+                                                                                  <http://rdfs.org/sioc/ns#has_creator> <http://localhost/OntoWiki/Config/Admin> .
+
+<http://www.clelicy.de/radsport_ontologie#> a owl:Ontology ;
+                                            owl:imports <http://dbpedia.org/ontology/> .
+
+<http://www.clelicy.de/radsport_ontologie#100._Tour_de_France> a owl:NamedIndividual, radsport_ontologie:Tour_de_France ;
+                                                               rdfs:label "100. Tour de France 2013" ;
+                                                               radsport_ontologie:hatAustragungsland radsport_ontologie:Frankreich ;
+                                                               radsport_ontologie:hatEtappe <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe1>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe10>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe11>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe12>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe13>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe14>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe15>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe16>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe17>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe18>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe19>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe2>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe20>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe21>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe3>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe4>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe5>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe6>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe7>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe8>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe9> ;
+                                                               radsport_ontologie:hatSiegerBergwertung radsport_ontologie:Nairo_Quintana ;
+                                                               radsport_ontologie:hatSiegerGesamtwertung radsport_ontologie:Chris_Froome ;
+                                                               radsport_ontologie:hatSiegerKaempferischsterFahrer radsport_ontologie:Christophe_Riblon ;
+                                                               radsport_ontologie:hatSiegerMannschaftswertung radsport_ontologie:Team_Saxo-Tinkoff ;
+                                                               radsport_ontologie:hatSiegerNachwuchswertung radsport_ontologie:Nairo_Quintana ;
+                                                               radsport_ontologie:hatSiegerSprintwertung radsport_ontologie:Peter_Sagan ;
+                                                               radsport_ontologie:nimmtTeil radsport_ontologie:Ag2r_La_Mondiale, radsport_ontologie:Astana_Pro_Team, radsport_ontologie:BMC_Racing_Team, radsport_ontologie:Belkin-Pro_Cycling_Team, radsport_ontologie:Cannondale_Pro_Cycling, <http://www.clelicy.de/radsport_ontologie#Cofidis,_Solutions_Crédits>, radsport_ontologie:Euskaltel_Euskadi, <http://www.clelicy.de/radsport_ontologie#FDJ.fr>, radsport_ontologie:Garmin_Sharp, radsport_ontologie:Katusha, radsport_ontologie:Lampre-Merida, radsport_ontologie:Lotto_Belisol, radsport_ontologie:Movistar_Team, radsport_ontologie:Omega_Pharma-Quick-Step_Cycling_Team, radsport_ontologie:Orica_GreenEdge, radsport_ontologie:RadioShack_Leopard, radsport_ontologie:Sky_ProCycling, radsport_ontologie:Sojasun, radsport_ontologie:Team_Argos-Shimano, radsport_ontologie:Team_Europcar, radsport_ontologie:Team_Saxo-Tinkoff ;
+                                                               radsport_ontologie:hatAnzahlEtappen "21"^^xsd:int ;
+                                                               radsport_ontologie:hatAnzahlFahrer "198"^^xsd:int ;
+                                                               radsport_ontologie:hatAuflage "100"^^xsd:int ;
+                                                               radsport_ontologie:hatBeginn "2013-06-29T12:15:00+01:00"^^xsd:dateTime ;
+                                                               radsport_ontologie:hatEnde "2013-07-21T21:36:00+01:00"^^xsd:dateTime ;
+                                                               radsport_ontologie:hatGesamtlaenge "3360 km"^^xsd:string ;
+                                                               radsport_ontologie:hatGesamtzeit "83:56:40 h"^^xsd:string ;
+                                                               radsport_ontologie:hatMannschaften "22"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe1> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                            rdfs:label "1. Etappe von Porto-Vecchio nach Bastia" ;
+                                                            radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Flachetappe ;
+                                                            radsport_ontologie:hatEtappensieger radsport_ontologie:Marcel_Kittel ;
+                                                            radsport_ontologie:hatKaempferischstenFahrer <http://www.clelicy.de/radsport_ontologie#Jérôme_Cousin> ;
+                                                            radsport_ontologie:hatStartort radsport_ontologie:Porto-Vecchio ;
+                                                            radsport_ontologie:hatZielort radsport_ontologie:Bastia ;
+                                                            radsport_ontologie:hatAnzahlFahrer "198"^^xsd:int ;
+                                                            radsport_ontologie:hatDatum "2013-06-29"^^xsd:string ;
+                                                            radsport_ontologie:hatEnde "2013-06-29T17:14:00+01:00"^^xsd:dateTime ;
+                                                            radsport_ontologie:hatGesamtzeit "4:56:52 h"^^xsd:string ;
+                                                            <http://www.clelicy.de/radsport_ontologie#hatLänge> "213 km"^^xsd:string ;
+                                                            radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                            radsport_ontologie:hatStart "2013-06-29T12:16:00+01:00"^^xsd:dateTime ;
+                                                            radsport_ontologie:istEtappe "1"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe10> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Flachetappe ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Marcel_Kittel ;
+                                                             radsport_ontologie:hatKaempferischstenFahrer <http://www.clelicy.de/radsport_ontologie#Jérôme_Cousin> ;
+                                                             radsport_ontologie:hatStartort radsport_ontologie:Saint-Gildas-des-Bois ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Saint-Malo ;
+                                                             radsport_ontologie:hatDatum "2013-07-09"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "4:43:25 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "197 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "10"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe11> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Einzelzeitfahren ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Tony_Martin ;
+                                                             radsport_ontologie:hatStartort radsport_ontologie:Avranches ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Mont-Saint-Michel ;
+                                                             radsport_ontologie:hatDatum "2013-07-10"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "36:29 min"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "33 km"^^xsd:string ;
+                                                             radsport_ontologie:istEtappe "11"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe12> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Flachetappe ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Marcel_Kittel ;
+                                                             radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Juan_Antonio_Flecha ;
+                                                             radsport_ontologie:hatStartort <http://www.clelicy.de/radsport_ontologie#Fougères> ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Tours ;
+                                                             radsport_ontologie:hatDatum "2013-07-11"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "4:49:49 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "218 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergwertungen "0"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "12"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe13> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Flachetappe ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Mark_Cavendish ;
+                                                             radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Mark_Cavendish ;
+                                                             radsport_ontologie:hatStartort radsport_ontologie:Tours ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Saint-Amand-Montrond ;
+                                                             radsport_ontologie:hatDatum "2013-07-12"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "3:40:08 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "173 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "13"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe14> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik <http://www.clelicy.de/radsport_ontologie#hügelige_Etappe> ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Matteo_Trentin ;
+                                                             radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Julien_Simon ;
+                                                             radsport_ontologie:hatStartort <http://www.clelicy.de/radsport_ontologie#Saint-Pourçain-sur-Sioule> ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Lyon ;
+                                                             radsport_ontologie:hatDatum "2013-07-13"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "4:15:11 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "191 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergwertungen "7"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "14"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe15> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Bergetappe ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Chris_Froome ;
+                                                             radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Sylvain_Chavanel ;
+                                                             radsport_ontologie:hatStartort radsport_ontologie:Givors ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Mont_Ventoux ;
+                                                             radsport_ontologie:hatDatum "2013-07-14"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "5:48:45 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "242 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergankunft "1"^^xsd:integer ;
+                                                             radsport_ontologie:hatBergwertungen "5"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "15"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe16> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Bergetappe ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Rui_Costa ;
+                                                             radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Rui_Costa ;
+                                                             radsport_ontologie:hatStartort radsport_ontologie:Vaison-la-Romaine ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Gap ;
+                                                             radsport_ontologie:hatDatum "2013-07-16"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "3:52:45 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "168 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergwertungen "3"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "16"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe17> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Einzelzeitfahren ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Chris_Froome ;
+                                                             radsport_ontologie:hatStartort radsport_ontologie:Embrun ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Chorges ;
+                                                             radsport_ontologie:hatDatum "2013-07-17"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "51:33 min"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "32 km"^^xsd:string ;
+                                                             radsport_ontologie:istEtappe "17"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe18> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Bergetappe ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Christophe_Riblon ;
+                                                             radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Christophe_Riblon ;
+                                                             radsport_ontologie:hatStartort radsport_ontologie:Gap ;
+                                                             radsport_ontologie:hatZielort <http://www.clelicy.de/radsport_ontologie#Alpe_d’Huez> ;
+                                                             radsport_ontologie:hatDatum "2013-07-18"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "4:51:32 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "172,5 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergankunft "1"^^xsd:integer ;
+                                                             radsport_ontologie:hatBergwertungen "6"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "18"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe19> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Bergetappe ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Rui_Costa ;
+                                                             radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Pierre_Rolland ;
+                                                             radsport_ontologie:hatStartort <http://www.clelicy.de/radsport_ontologie#Bourg-d’Oisans> ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Le_Grand-Bornand ;
+                                                             radsport_ontologie:hatDatum "2013-07-19"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "5:59:01 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "204,5 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergwertungen "5"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "19"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe2> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                            radsport_ontologie:hatEtappencharakteristik <http://www.clelicy.de/radsport_ontologie#hügelige_Etappe> ;
+                                                            radsport_ontologie:hatEtappensieger radsport_ontologie:Jan_Bakelants ;
+                                                            radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Blel_Kadri ;
+                                                            radsport_ontologie:hatStartort radsport_ontologie:Bastia ;
+                                                            radsport_ontologie:hatZielort radsport_ontologie:Ajaccio ;
+                                                            radsport_ontologie:hatAnzahlFahrer "198"^^xsd:int ;
+                                                            radsport_ontologie:hatDatum "2013-06-30"^^xsd:string ;
+                                                            radsport_ontologie:hatEnde "2013-06-30T17:24:00+01:00"^^xsd:dateTime ;
+                                                            radsport_ontologie:hatGesamtzeit "3:43:11 h"^^xsd:string ;
+                                                            <http://www.clelicy.de/radsport_ontologie#hatLänge> "156 km"^^xsd:string ;
+                                                            radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                            radsport_ontologie:hatBergwertungen "4"^^xsd:int ;
+                                                            radsport_ontologie:hatStart "2013-06-30T13:40:00+01:00"^^xsd:dateTime ;
+                                                            radsport_ontologie:istEtappe "2"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe20> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Bergetappe ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Nairo_Quintana ;
+                                                             radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Jens_Voigt ;
+                                                             radsport_ontologie:hatStartort radsport_ontologie:Annecy ;
+                                                             radsport_ontologie:hatZielort radsport_ontologie:Semnoz ;
+                                                             radsport_ontologie:hatDatum "2013-07-20"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "3:39:04 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "125 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergankunft "1"^^xsd:integer ;
+                                                             radsport_ontologie:hatBergwertungen "6"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "20"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe21> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                             radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Flachetappe ;
+                                                             radsport_ontologie:hatEtappensieger radsport_ontologie:Marcel_Kittel ;
+                                                             radsport_ontologie:hatStartort radsport_ontologie:Versailles ;
+                                                             radsport_ontologie:hatZielort <http://www.clelicy.de/radsport_ontologie#Paris_Champs-Élysées> ;
+                                                             radsport_ontologie:hatAnzahlFahrer "169"^^xsd:int ;
+                                                             radsport_ontologie:hatDatum "2013-07-21"^^xsd:string ;
+                                                             radsport_ontologie:hatGesamtzeit "3:06:14 h"^^xsd:string ;
+                                                             <http://www.clelicy.de/radsport_ontologie#hatLänge> "133,5 km"^^xsd:string ;
+                                                             radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                             radsport_ontologie:hatBergwertungen "2"^^xsd:int ;
+                                                             radsport_ontologie:istEtappe "21"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe3> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                            radsport_ontologie:hatEtappencharakteristik <http://www.clelicy.de/radsport_ontologie#hügelige_Etappe> ;
+                                                            radsport_ontologie:hatEtappensieger radsport_ontologie:Simon_Gerrans ;
+                                                            radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Simon_Clarke ;
+                                                            radsport_ontologie:hatStartort radsport_ontologie:Ajaccio ;
+                                                            radsport_ontologie:hatZielort radsport_ontologie:Calvi ;
+                                                            radsport_ontologie:hatAnzahlFahrer "198"^^xsd:int ;
+                                                            radsport_ontologie:hatDatum "2013-07-01"^^xsd:string ;
+                                                            radsport_ontologie:hatGesamtzeit "3:41:24 h"^^xsd:string ;
+                                                            <http://www.clelicy.de/radsport_ontologie#hatLänge> "145 km"^^xsd:string ;
+                                                            radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                            radsport_ontologie:hatBergwertungen "4"^^xsd:int ;
+                                                            radsport_ontologie:istEtappe "3"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe4> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                            radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Mannschaftszeitfahren ;
+                                                            radsport_ontologie:hatEtappensieger radsport_ontologie:Orica_GreenEdge ;
+                                                            radsport_ontologie:hatStartort radsport_ontologie:Nizza ;
+                                                            radsport_ontologie:hatZielort radsport_ontologie:Nizza ;
+                                                            radsport_ontologie:hatAnzahlFahrer "198"^^xsd:int ;
+                                                            radsport_ontologie:hatDatum "2013-07-02"^^xsd:string ;
+                                                            radsport_ontologie:hatGesamtzeit "25:56 min"^^xsd:string ;
+                                                            <http://www.clelicy.de/radsport_ontologie#hatLänge> "25 km"^^xsd:string ;
+                                                            radsport_ontologie:hatDurchschnittsgeschwindigkeit "57,8 km/h"^^xsd:string ;
+                                                            radsport_ontologie:istEtappe "4"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe5> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                            radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Flachetappe ;
+                                                            radsport_ontologie:hatEtappensieger radsport_ontologie:Mark_Cavendish ;
+                                                            radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Thomas_De_Gendt ;
+                                                            radsport_ontologie:hatStartort radsport_ontologie:Cagnes-sur-Mer ;
+                                                            radsport_ontologie:hatZielort radsport_ontologie:Marseille ;
+                                                            radsport_ontologie:hatAnzahlFahrer "198"^^xsd:int ;
+                                                            radsport_ontologie:hatDatum "2013-07-03"^^xsd:string ;
+                                                            radsport_ontologie:hatGesamtzeit "5:31:51 h"^^xsd:string ;
+                                                            <http://www.clelicy.de/radsport_ontologie#hatLänge> "228,5 km"^^xsd:string ;
+                                                            radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                            radsport_ontologie:hatBergwertungen "4"^^xsd:int ;
+                                                            radsport_ontologie:hatDurchschnittsgeschwindigkeit "41,3 km/h"^^xsd:string ;
+                                                            radsport_ontologie:istEtappe "5"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe6> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                            radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Flachetappe ;
+                                                            radsport_ontologie:hatEtappensieger <http://www.clelicy.de/radsport_ontologie#André_Greipel> ;
+                                                            radsport_ontologie:hatKaempferischstenFahrer <http://www.clelicy.de/radsport_ontologie#André_Greipel> ;
+                                                            radsport_ontologie:hatStartort radsport_ontologie:Aix-en-Provence ;
+                                                            radsport_ontologie:hatZielort radsport_ontologie:Montpellier ;
+                                                            radsport_ontologie:hatDatum "2013-07-04"^^xsd:string ;
+                                                            radsport_ontologie:hatGesamtzeit "3:59:02 h"^^xsd:string ;
+                                                            <http://www.clelicy.de/radsport_ontologie#hatLänge> "176,5 km"^^xsd:string ;
+                                                            radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                            radsport_ontologie:hatBergwertungen "1"^^xsd:int ;
+                                                            radsport_ontologie:hatDurchschnittsgeschwindigkeit "44,3 km/h"^^xsd:string ;
+                                                            radsport_ontologie:istEtappe "6"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe7> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                            radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Flachetappe ;
+                                                            radsport_ontologie:hatEtappensieger radsport_ontologie:Peter_Sagan ;
+                                                            radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Jan_Bakelants ;
+                                                            radsport_ontologie:hatStartort radsport_ontologie:Montpellier ;
+                                                            radsport_ontologie:hatZielort radsport_ontologie:Albi ;
+                                                            radsport_ontologie:hatDatum "2013-07-05"^^xsd:string ;
+                                                            radsport_ontologie:hatGesamtzeit "4:54:12 h"^^xsd:string ;
+                                                            <http://www.clelicy.de/radsport_ontologie#hatLänge> "205,5 km"^^xsd:string ;
+                                                            radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                            radsport_ontologie:hatBergwertungen "4"^^xsd:int ;
+                                                            radsport_ontologie:istEtappe "7"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe8> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                            radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Bergetappe ;
+                                                            radsport_ontologie:hatEtappensieger radsport_ontologie:Chris_Froome ;
+                                                            radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Nairo_Quintana ;
+                                                            radsport_ontologie:hatStartort radsport_ontologie:Castres ;
+                                                            radsport_ontologie:hatZielort radsport_ontologie:Ax_3_Domaines ;
+                                                            radsport_ontologie:hatAnzahlFahrer "188"^^xsd:int ;
+                                                            radsport_ontologie:hatDatum "2013-07-06"^^xsd:string ;
+                                                            radsport_ontologie:hatGesamtzeit "5:03:18 h"^^xsd:string ;
+                                                            <http://www.clelicy.de/radsport_ontologie#hatLänge> "195 km"^^xsd:string ;
+                                                            radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                            radsport_ontologie:hatBergankunft "1"^^xsd:integer ;
+                                                            radsport_ontologie:hatBergwertungen "3"^^xsd:int ;
+                                                            radsport_ontologie:hatDurchschnittsgeschwindigkeit "38,6 km/h"^^xsd:string ;
+                                                            radsport_ontologie:istEtappe "8"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Etappe9> a owl:NamedIndividual, radsport_ontologie:Etappe ;
+                                                            radsport_ontologie:hatEtappencharakteristik radsport_ontologie:Bergetappe ;
+                                                            radsport_ontologie:hatEtappensieger radsport_ontologie:Daniel_Martin ;
+                                                            radsport_ontologie:hatKaempferischstenFahrer radsport_ontologie:Romain_Bardet ;
+                                                            radsport_ontologie:hatStartort radsport_ontologie:Saint-Girons ;
+                                                            radsport_ontologie:hatZielort <http://www.clelicy.de/radsport_ontologie#Bagnères-de-Bigorre> ;
+                                                            radsport_ontologie:hatAnzahlFahrer "188"^^xsd:int ;
+                                                            radsport_ontologie:hatDatum "2013-07-07"^^xsd:string ;
+                                                            radsport_ontologie:hatGesamtzeit "4:43:03 h"^^xsd:string ;
+                                                            <http://www.clelicy.de/radsport_ontologie#hatLänge> "168,5 km"^^xsd:string ;
+                                                            radsport_ontologie:hatSprintwertungen "1"^^xsd:int ;
+                                                            radsport_ontologie:hatBergwertungen "5"^^xsd:int ;
+                                                            radsport_ontologie:hatDurchschnittsgeschwindigkeit "35,7 km/h"^^xsd:string ;
+                                                            radsport_ontologie:istEtappe "9"^^xsd:int .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbe_Rückennummer> a owl:NamedIndividual, <http://www.clelicy.de/radsport_ontologie#Gelbe_Rückennummer> ;
+                                                                        radsport_ontologie:wurdeVerliehenBei <http://www.clelicy.de/radsport_ontologie#100._Tour_de_France> .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbes_Trikot> a owl:NamedIndividual, radsport_ontologie:Gelbes_Trikot ;
+                                                                  radsport_ontologie:wurdeVerliehenBei <http://www.clelicy.de/radsport_ontologie#100._Tour_de_France> .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Gepunktetes_Trikot> a owl:NamedIndividual, radsport_ontologie:Gepunktetes_Trikot ;
+                                                                       radsport_ontologie:wurdeVerliehenBei <http://www.clelicy.de/radsport_ontologie#100._Tour_de_France> .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Grünes_Trikot> a owl:NamedIndividual, <http://www.clelicy.de/radsport_ontologie#Grünes_Trikot> ;
+                                                                   radsport_ontologie:wurdeVerliehenBei <http://www.clelicy.de/radsport_ontologie#100._Tour_de_France> .
+
+<http://www.clelicy.de/radsport_ontologie#2013-TDF-Weißes_Trikot> a owl:NamedIndividual, <http://www.clelicy.de/radsport_ontologie#Weißes_Trikot> ;
+                                                                   radsport_ontologie:wurdeVerliehenBei <http://www.clelicy.de/radsport_ontologie#100._Tour_de_France> .
+
+radsport_ontologie:Ag2r_La_Mondiale a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Aix-en-Provence a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Ajaccio a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Albi a owl:NamedIndividual, schema:Place .
+
+<http://www.clelicy.de/radsport_ontologie#Alpe_d’Huez> a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Amstel_Gold_Race a owl:Class ;
+                                    rdfs:subClassOf radsport_ontologie:Radrennen .
+
+<http://www.clelicy.de/radsport_ontologie#André_Greipel> a owl:NamedIndividual, schema:Person ;
+                                                          radsport_ontologie:hatTeam radsport_ontologie:Lotto_Belisol .
+
+radsport_ontologie:Annecy a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Astana_Pro_Team a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Avranches a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Ax_3_Domaines a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:BMC_Racing_Team a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:BMX a owl:Class ;
+                       rdfs:subClassOf radsport_ontologie:Disziplin .
+
+<http://www.clelicy.de/radsport_ontologie#Bagnères-de-Bigorre> a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Bahnradsport a owl:Class ;
+                                rdfs:subClassOf radsport_ontologie:Disziplin .
+
+radsport_ontologie:Baskenland-Rundfahrt a owl:Class ;
+                                        rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Bastia a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Belkin-Pro_Cycling_Team a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Bergetappe a owl:Class, owl:NamedIndividual, radsport_ontologie:Bergetappe ;
+                              rdfs:subClassOf radsport_ontologie:Etappencharakterisitik .
+
+radsport_ontologie:Blel_Kadri a owl:NamedIndividual, schema:Person ;
+                              radsport_ontologie:hatTeam radsport_ontologie:Ag2r_La_Mondiale ;
+                              radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gepunktetes_Trikot> .
+
+<http://www.clelicy.de/radsport_ontologie#Bourg-d’Oisans> a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Cagnes-sur-Mer a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Calvi a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Cannondale_Pro_Cycling a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Castres a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Chorges a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Chris_Froome a owl:NamedIndividual, schema:Person ;
+                                radsport_ontologie:hatTeam radsport_ontologie:Sky_ProCycling ;
+                                radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbes_Trikot>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gepunktetes_Trikot> .
+
+radsport_ontologie:Christophe_Riblon a owl:NamedIndividual, schema:Person ;
+                                     radsport_ontologie:hatTeam radsport_ontologie:Ag2r_La_Mondiale .
+
+radsport_ontologie:Clasica_San_Sebastian a owl:Class ;
+                                         rdfs:subClassOf radsport_ontologie:Radrennen .
+
+<http://www.clelicy.de/radsport_ontologie#Cofidis,_Solutions_Crédits> a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+<http://www.clelicy.de/radsport_ontologie#Critérium_du_Dauphiné_Libéré> a owl:Class ;
+                                                                            rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Cross_Country a owl:Class ;
+                                 rdfs:subClassOf radsport_ontologie:Mountainbike .
+
+radsport_ontologie:Cyclocross a owl:Class ;
+                              rdfs:subClassOf radsport_ontologie:Disziplin .
+
+radsport_ontologie:Daniel_Martin a owl:NamedIndividual, schema:Person ;
+                                 radsport_ontologie:hatTeam radsport_ontologie:Garmin_Sharp .
+
+radsport_ontologie:Daryl_Impey a owl:NamedIndividual, schema:Person ;
+                               radsport_ontologie:hatTeam radsport_ontologie:Orica_GreenEdge ;
+                               radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbes_Trikot> .
+
+radsport_ontologie:Deutschland_Tour a owl:Class ;
+                                    rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Disziplin a owl:Class .
+
+radsport_ontologie:Downhill a owl:Class ;
+                            rdfs:subClassOf radsport_ontologie:Mountainbike .
+
+radsport_ontologie:Duothlon a owl:Class ;
+                            rdfs:subClassOf radsport_ontologie:Disziplin .
+
+radsport_ontologie:ENECO_Tour a owl:Class ;
+                              rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Einrad a owl:Class ;
+                          rdfs:subClassOf radsport_ontologie:Hallenradsport .
+
+radsport_ontologie:Eintagesrennen a owl:Class ;
+                                  rdfs:subClassOf <http://www.clelicy.de/radsport_ontologie#Straßenradsport> .
+
+radsport_ontologie:Einzelzeitfahren a owl:Class, owl:NamedIndividual, radsport_ontologie:Einzelzeitfahren ;
+                                    rdfs:subClassOf radsport_ontologie:Zeitfahren .
+
+radsport_ontologie:Embrun a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Etappe a owl:Class .
+
+radsport_ontologie:Etappencharakterisitik a owl:Class .
+
+radsport_ontologie:Etappenrennen a owl:Class ;
+                                 rdfs:subClassOf <http://www.clelicy.de/radsport_ontologie#Straßenradsport> .
+
+radsport_ontologie:Euskaltel_Euskadi a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+<http://www.clelicy.de/radsport_ontologie#FDJ.fr> a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Flachetappe a owl:Class, owl:NamedIndividual, radsport_ontologie:Flachetappe ;
+                               rdfs:subClassOf radsport_ontologie:Etappencharakterisitik .
+
+radsport_ontologie:Flandern-Rundfahrt a owl:Class ;
+                                      rdfs:subClassOf radsport_ontologie:Radrennen .
+
+<http://www.clelicy.de/radsport_ontologie#Fougères> a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Four_Cross a owl:Class ;
+                              rdfs:subClassOf radsport_ontologie:Mountainbike .
+
+radsport_ontologie:Frankreich a owl:NamedIndividual, schema:Country ;
+                              rdfs:label "Frankreich"@de, "France"@en .
+
+radsport_ontologie:GP_Ouest_France a owl:Class ;
+                                   rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Gap a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Garmin_Sharp a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+<http://www.clelicy.de/radsport_ontologie#Gelbe_Rückennummer> a owl:Class ;
+                                                               rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Gelbes_Trikot a owl:Class ;
+                                 rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Gent-Wevelgem a owl:Class ;
+                                 rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Gepunktetes_Trikot a owl:Class ;
+                                      rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+<http://www.clelicy.de/radsport_ontologie#Giro_d’Italia> a owl:Class ;
+                                                           rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Givors a owl:NamedIndividual, schema:Place .
+
+<http://www.clelicy.de/radsport_ontologie#Grand_Prix_Cycliste_de_Montréal> a owl:Class ;
+                                                                            rdfs:subClassOf radsport_ontologie:Radrennen .
+
+<http://www.clelicy.de/radsport_ontologie#Grand_Prix_Cycliste_de_Québec> a owl:Class ;
+                                                                          rdfs:subClassOf radsport_ontologie:Radrennen .
+
+<http://www.clelicy.de/radsport_ontologie#Grünes_Trikot> a owl:Class ;
+                                                          rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Hallenradsport a owl:Class ;
+                                  rdfs:subClassOf radsport_ontologie:Disziplin .
+
+radsport_ontologie:Jan_Bakelants a owl:NamedIndividual, schema:Person ;
+                                 radsport_ontologie:hatTeam radsport_ontologie:RadioShack_Leopard ;
+                                 radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbes_Trikot> .
+
+radsport_ontologie:Jens_Voigt a owl:NamedIndividual, schema:Person ;
+                              radsport_ontologie:hatTeam radsport_ontologie:RadioShack_Leopard .
+
+radsport_ontologie:Juan_Antonio_Flecha a owl:NamedIndividual, schema:Person ;
+                                       radsport_ontologie:hatTeam radsport_ontologie:Vacansoleil-DCM_Pro_Cycling_Team .
+
+<http://www.clelicy.de/radsport_ontologie#Juan_José_Lobato> a owl:NamedIndividual, schema:Person ;
+                                                             radsport_ontologie:hatTeam radsport_ontologie:Euskaltel_Euskadi ;
+                                                             radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gepunktetes_Trikot> .
+
+radsport_ontologie:Julien_Simon a owl:NamedIndividual, schema:Person ;
+                                radsport_ontologie:hatTeam radsport_ontologie:Sojasun .
+
+<http://www.clelicy.de/radsport_ontologie#Jérôme_Cousin> a owl:NamedIndividual, schema:Person ;
+                                                           radsport_ontologie:hatTeam radsport_ontologie:Team_Europcar .
+
+radsport_ontologie:Katalonien-Rundfahrt a owl:Class ;
+                                        rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Katusha a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Kunstradfahren a owl:Class ;
+                                  rdfs:subClassOf radsport_ontologie:Hallenradsport .
+
+radsport_ontologie:Lampre-Merida a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Le_Grand-Bornand a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Lombardei-Rundfahrt a owl:Class ;
+                                       rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Lotto_Belisol a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Lyon a owl:NamedIndividual, schema:Place .
+
+<http://www.clelicy.de/radsport_ontologie#Lüttich-Bastogne-Lüttich> a owl:Class ;
+                                                                      rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Maglia_Azurra a owl:Class ;
+                                 rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Maglia_Bianca a owl:Class ;
+                                 rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Maglia_Ciclamino a owl:Class ;
+                                    rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Maglia_Nera a owl:Class ;
+                               rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Maglia_Rosa a owl:Class ;
+                               rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Maglia_Rossa a owl:Class ;
+                                rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Maglia_Verde a owl:Class ;
+                                rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+<http://www.clelicy.de/radsport_ontologie#Mailand–Sanremo> a owl:Class ;
+                                                             rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Mannschaft a owl:Class .
+
+radsport_ontologie:Mannschaftszeitfahren a owl:Class, owl:NamedIndividual, radsport_ontologie:Mannschaftszeitfahren ;
+                                         rdfs:subClassOf radsport_ontologie:Zeitfahren .
+
+radsport_ontologie:Marathon a owl:Class ;
+                            rdfs:subClassOf radsport_ontologie:Mountainbike .
+
+radsport_ontologie:Marcel_Kittel a owl:NamedIndividual, schema:Person ;
+                                 radsport_ontologie:hatTeam radsport_ontologie:Team_Argos-Shimano ;
+                                 radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbes_Trikot>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Grünes_Trikot>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Weißes_Trikot> .
+
+radsport_ontologie:Mark_Cavendish a owl:NamedIndividual, schema:Person ;
+                                  radsport_ontologie:hatTeam radsport_ontologie:Omega_Pharma-Quick-Step_Cycling_Team .
+
+radsport_ontologie:Marseille a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Matteo_Trentin a owl:NamedIndividual, schema:Person ;
+                                  radsport_ontologie:hatTeam radsport_ontologie:Omega_Pharma-Quick-Step_Cycling_Team .
+
+<http://www.clelicy.de/radsport_ontologie#Meisterschaft_von_Zürich> a owl:Class ;
+                                                                     rdfs:subClassOf radsport_ontologie:Radrennen .
+
+<http://www.clelicy.de/radsport_ontologie#Michał_Kwiatkowski> a owl:NamedIndividual, schema:Person ;
+                                                               radsport_ontologie:hatTeam radsport_ontologie:Omega_Pharma-Quick-Step_Cycling_Team ;
+                                                               radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Weißes_Trikot> .
+
+radsport_ontologie:Mont-Saint-Michel a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Mont_Ventoux a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Montpellier a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Mountainbike a owl:Class ;
+                                rdfs:subClassOf radsport_ontologie:Disziplin .
+
+radsport_ontologie:Movistar_Team a owl:NamedIndividual, radsport_ontologie:Mannschaft ;
+                                 radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbe_Rückennummer> .
+
+radsport_ontologie:Nairo_Quintana a owl:NamedIndividual, schema:Person ;
+                                  radsport_ontologie:hatTeam radsport_ontologie:Movistar_Team ;
+                                  radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gepunktetes_Trikot>, <http://www.clelicy.de/radsport_ontologie#2013-TDF-Weißes_Trikot> .
+
+radsport_ontologie:Nationale_Meister a owl:Class ;
+                                     rdfs:subClassOf <http://www.clelicy.de/radsport_ontologie#Straßenradsport> .
+
+radsport_ontologie:Nizza a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Omega_Pharma-Quick-Step_Cycling_Team a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Orica_GreenEdge a owl:NamedIndividual, radsport_ontologie:Mannschaft ;
+                                   radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbe_Rückennummer> .
+
+radsport_ontologie:Paris-Roubaix a owl:Class ;
+                                 rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Paris-Tours a owl:Class ;
+                               rdfs:subClassOf radsport_ontologie:Radrennen .
+
+<http://www.clelicy.de/radsport_ontologie#Paris_Champs-Élysées> a owl:NamedIndividual, schema:Place .
+
+<http://www.clelicy.de/radsport_ontologie#Paris–Nizza> a owl:Class ;
+                                                         rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Peter_Sagan a owl:NamedIndividual, schema:Person ;
+                               radsport_ontologie:hatTeam radsport_ontologie:Cannondale_Pro_Cycling ;
+                               radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Grünes_Trikot> .
+
+radsport_ontologie:Pierre_Rolland a owl:NamedIndividual, schema:Person ;
+                                  radsport_ontologie:hatTeam radsport_ontologie:Team_Europcar ;
+                                  radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gepunktetes_Trikot> .
+
+radsport_ontologie:Polen-Rundfahrt a owl:Class ;
+                                   rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Porto-Vecchio a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Prolog a owl:Class ;
+                          rdfs:subClassOf radsport_ontologie:Etappe .
+
+radsport_ontologie:Radball a owl:Class ;
+                           rdfs:subClassOf radsport_ontologie:Hallenradsport .
+
+radsport_ontologie:RadioShack_Leopard a owl:NamedIndividual, radsport_ontologie:Mannschaft ;
+                                      radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbe_Rückennummer> .
+
+radsport_ontologie:Radpolo a owl:Class ;
+                           rdfs:subClassOf radsport_ontologie:Hallenradsport .
+
+radsport_ontologie:Radrennen a owl:Class .
+
+radsport_ontologie:Rennserie a owl:Class .
+
+radsport_ontologie:Romain_Bardet a owl:NamedIndividual, schema:Person ;
+                                 radsport_ontologie:hatTeam radsport_ontologie:Ag2r_La_Mondiale .
+
+radsport_ontologie:Rui_Costa a owl:NamedIndividual, schema:Person ;
+                             radsport_ontologie:hatTeam radsport_ontologie:Movistar_Team .
+
+radsport_ontologie:Saint-Amand-Montrond a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Saint-Gildas-des-Bois a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Saint-Girons a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Saint-Malo a owl:NamedIndividual, schema:Place .
+
+<http://www.clelicy.de/radsport_ontologie#Saint-Pourçain-sur-Sioule> a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Sechstagesrennen a owl:Class ;
+                                    rdfs:subClassOf radsport_ontologie:Bahnradsport .
+
+radsport_ontologie:Semnoz a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Simon_Clarke a owl:NamedIndividual, schema:Person ;
+                                radsport_ontologie:hatTeam radsport_ontologie:Orica_GreenEdge .
+
+radsport_ontologie:Simon_Gerrans a owl:NamedIndividual, schema:Person ;
+                                 radsport_ontologie:hatTeam radsport_ontologie:Orica_GreenEdge ;
+                                 radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbes_Trikot> .
+
+radsport_ontologie:Sky_ProCycling a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Sojasun a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+<http://www.clelicy.de/radsport_ontologie#Straßen-Rad-WM> a owl:Class ;
+                                                           rdfs:subClassOf radsport_ontologie:Radrennen .
+
+<http://www.clelicy.de/radsport_ontologie#Straßenradsport> a owl:Class ;
+                                                            rdfs:subClassOf radsport_ontologie:Disziplin .
+
+radsport_ontologie:Sylvain_Chavanel a owl:NamedIndividual, schema:Person ;
+                                    radsport_ontologie:hatTeam radsport_ontologie:Omega_Pharma-Quick-Step_Cycling_Team .
+
+radsport_ontologie:Team_Argos-Shimano a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Team_Europcar a owl:NamedIndividual, radsport_ontologie:Mannschaft .
+
+radsport_ontologie:Team_Saxo-Tinkoff a owl:NamedIndividual, radsport_ontologie:Mannschaft ;
+                                     radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbe_Rückennummer> .
+
+radsport_ontologie:Thomas_De_Gendt a owl:NamedIndividual, schema:Person ;
+                                   radsport_ontologie:hatTeam radsport_ontologie:Vacansoleil-DCM_Pro_Cycling_Team .
+
+<http://www.clelicy.de/radsport_ontologie#Tirreno–Adriatico> a owl:Class ;
+                                                               rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Tony_Martin a owl:NamedIndividual, schema:Person ;
+                               radsport_ontologie:hatTeam radsport_ontologie:Omega_Pharma-Quick-Step_Cycling_Team .
+
+radsport_ontologie:Tour_Down_Under a owl:Class ;
+                                   rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Tour_de_France a owl:Class ;
+                                  rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Tour_de_Romandie a owl:Class ;
+                                    rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Tour_de_Suisse a owl:Class ;
+                                  rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Tours a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Triathlon a owl:Class ;
+                             rdfs:subClassOf radsport_ontologie:Disziplin .
+
+radsport_ontologie:UCI_World_Tour a owl:Class ;
+                                  rdfs:subClassOf radsport_ontologie:Rennserie .
+
+radsport_ontologie:Vacansoleil-DCM_Pro_Cycling_Team a owl:NamedIndividual, radsport_ontologie:Mannschaft ;
+                                                    radsport_ontologie:trugTrikot <http://www.clelicy.de/radsport_ontologie#2013-TDF-Gelbe_Rückennummer> .
+
+radsport_ontologie:Vaison-la-Romaine a owl:NamedIndividual, schema:Place .
+
+radsport_ontologie:Vattenfall_Cyclassics a owl:Class ;
+                                         rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Versailles a owl:NamedIndividual, schema:Place .
+
+<http://www.clelicy.de/radsport_ontologie#Vuelta_a_España> a owl:Class ;
+                                                            rdfs:subClassOf radsport_ontologie:Radrennen .
+
+radsport_ontologie:Wallonischer_Pfeil a owl:Class ;
+                                      rdfs:subClassOf radsport_ontologie:Radrennen .
+
+<http://www.clelicy.de/radsport_ontologie#Weißes_Trikot> a owl:Class ;
+                                                          rdfs:subClassOf radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:Weltcup a owl:Class ;
+                           rdfs:subClassOf radsport_ontologie:Bahnradsport .
+
+radsport_ontologie:Weltcup_der_Frauen a owl:Class ;
+                                      rdfs:subClassOf <http://www.clelicy.de/radsport_ontologie#Straßenradsport> .
+
+radsport_ontologie:Weltmeisterschaften_Bahnradsport a owl:Class ;
+                                                    rdfs:subClassOf radsport_ontologie:Bahnradsport .
+
+<http://www.clelicy.de/radsport_ontologie#Weltmeisterschaften_Straßenradsport> a owl:Class ;
+                                                                                rdfs:subClassOf <http://www.clelicy.de/radsport_ontologie#Straßenradsport> .
+
+radsport_ontologie:Wertungstrikot a owl:Class .
+
+radsport_ontologie:Zeitfahren a owl:Class, owl:NamedIndividual, radsport_ontologie:Zeitfahren ;
+                              rdfs:subClassOf radsport_ontologie:Etappencharakterisitik .
+
+radsport_ontologie:Zeitfahrrennen a owl:Class ;
+                                  rdfs:subClassOf <http://www.clelicy.de/radsport_ontologie#Straßenradsport> .
+
+radsport_ontologie:hatAnzahlEtappen a owl:DatatypeProperty ;
+                                    rdfs:domain radsport_ontologie:Radrennen ;
+                                    rdfs:range xsd:int .
+
+radsport_ontologie:hatAnzahlFahrer a owl:DatatypeProperty ;
+                                   rdfs:domain radsport_ontologie:Radrennen ;
+                                   rdfs:range xsd:int .
+
+radsport_ontologie:hatAuflage a owl:DatatypeProperty ;
+                              rdfs:domain radsport_ontologie:Radrennen ;
+                              rdfs:range xsd:int .
+
+radsport_ontologie:hatAustragungsland a owl:ObjectProperty ;
+                                      rdfs:domain radsport_ontologie:Radrennen ;
+                                      rdfs:range schema:Country .
+
+radsport_ontologie:hatBeginn a owl:DatatypeProperty ;
+                             rdfs:domain radsport_ontologie:Radrennen ;
+                             rdfs:range xsd:dateTime .
+
+radsport_ontologie:hatBergankunft a owl:DatatypeProperty ;
+                                  rdfs:domain radsport_ontologie:Etappe ;
+                                  rdfs:range xsd:boolean .
+
+radsport_ontologie:hatBergwertungen a owl:DatatypeProperty ;
+                                    rdfs:domain radsport_ontologie:Etappe ;
+                                    rdfs:range xsd:int .
+
+radsport_ontologie:hatDatum a owl:DatatypeProperty ;
+                            rdfs:domain radsport_ontologie:Etappe ;
+                            rdfs:range xsd:string .
+
+radsport_ontologie:hatDauer a owl:DatatypeProperty ;
+                            rdfs:domain radsport_ontologie:Radrennen ;
+                            rdfs:range xsd:string .
+
+radsport_ontologie:hatDurchschnittsgeschwindigkeit a owl:DatatypeProperty ;
+                                                   rdfs:domain radsport_ontologie:Etappe ;
+                                                   rdfs:range xsd:string .
+
+radsport_ontologie:hatEnde a owl:DatatypeProperty ;
+                           rdfs:domain radsport_ontologie:Radrennen ;
+                           rdfs:range xsd:dateTime .
+
+radsport_ontologie:hatEtappe a owl:ObjectProperty ;
+                             rdfs:domain radsport_ontologie:Radrennen ;
+                             rdfs:range radsport_ontologie:Etappe .
+
+radsport_ontologie:hatEtappencharakteristik a owl:ObjectProperty ;
+                                            rdfs:domain radsport_ontologie:Etappe ;
+                                            rdfs:range radsport_ontologie:Etappencharakterisitik .
+
+radsport_ontologie:hatEtappensieger a owl:ObjectProperty ;
+                                    rdfs:domain radsport_ontologie:Etappe ;
+                                    rdfs:range radsport_ontologie:Mannschaft, schema:Person .
+
+radsport_ontologie:hatFahrerAusNation a owl:ObjectProperty ;
+                                      rdfs:domain radsport_ontologie:Radrennen ;
+                                      rdfs:range schema:Country .
+
+radsport_ontologie:hatGesamtlaenge a owl:DatatypeProperty ;
+                                   rdfs:domain radsport_ontologie:Radrennen, radsport_ontologie:Etappe ;
+                                   rdfs:range xsd:string .
+
+radsport_ontologie:hatGesamtzeit a owl:DatatypeProperty ;
+                                 rdfs:domain radsport_ontologie:Radrennen, radsport_ontologie:Etappe ;
+                                 rdfs:range xsd:string .
+
+radsport_ontologie:hatKaempferischstenFahrer a owl:ObjectProperty ;
+                                             rdfs:domain radsport_ontologie:Etappe ;
+                                             rdfs:range schema:Person .
+
+<http://www.clelicy.de/radsport_ontologie#hatLänge> a owl:DatatypeProperty ;
+                                                     rdfs:domain radsport_ontologie:Radrennen ;
+                                                     rdfs:range xsd:string .
+
+radsport_ontologie:hatMannschaften a owl:DatatypeProperty ;
+                                   rdfs:domain radsport_ontologie:Radrennen ;
+                                   rdfs:range xsd:int .
+
+radsport_ontologie:hatRennserie a owl:ObjectProperty ;
+                                rdfs:domain radsport_ontologie:Radrennen ;
+                                rdfs:range radsport_ontologie:Rennserie .
+
+radsport_ontologie:hatRuhetagAm a owl:DatatypeProperty ;
+                                rdfs:domain radsport_ontologie:Radrennen ;
+                                rdfs:range xsd:string .
+
+radsport_ontologie:hatSiegerBergwertung a owl:ObjectProperty ;
+                                        rdfs:domain radsport_ontologie:Radrennen ;
+                                        rdfs:range schema:Person .
+
+radsport_ontologie:hatSiegerGesamtwertung a owl:ObjectProperty ;
+                                          rdfs:domain radsport_ontologie:Radrennen ;
+                                          rdfs:range schema:Person .
+
+radsport_ontologie:hatSiegerKaempferischsterFahrer a owl:ObjectProperty ;
+                                                   rdfs:domain radsport_ontologie:Radrennen ;
+                                                   rdfs:range schema:Person .
+
+radsport_ontologie:hatSiegerMannschaftswertung a owl:ObjectProperty ;
+                                               rdfs:domain radsport_ontologie:Radrennen .
+
+radsport_ontologie:hatSiegerNachwuchswertung a owl:ObjectProperty ;
+                                             rdfs:domain radsport_ontologie:Radrennen ;
+                                             rdfs:range schema:Person .
+
+radsport_ontologie:hatSiegerSprintwertung a owl:ObjectProperty ;
+                                          rdfs:domain radsport_ontologie:Radrennen ;
+                                          rdfs:range schema:Person .
+
+radsport_ontologie:hatSprintwertungen a owl:DatatypeProperty ;
+                                      rdfs:domain radsport_ontologie:Etappe ;
+                                      rdfs:range xsd:int .
+
+radsport_ontologie:hatStart a owl:DatatypeProperty ;
+                            rdfs:domain radsport_ontologie:Etappe, radsport_ontologie:Rennserie ;
+                            rdfs:range xsd:dateTime .
+
+radsport_ontologie:hatStartort a owl:ObjectProperty ;
+                               rdfs:domain radsport_ontologie:Radrennen, radsport_ontologie:Etappe ;
+                               rdfs:range schema:Place .
+
+radsport_ontologie:hatTeam a owl:ObjectProperty ;
+                           rdfs:domain schema:Person ;
+                           rdfs:range radsport_ontologie:Mannschaft .
+
+radsport_ontologie:hatZeitraum a owl:DatatypeProperty ;
+                               rdfs:domain radsport_ontologie:Radrennen ;
+                               rdfs:range xsd:string .
+
+radsport_ontologie:hatZielort a owl:ObjectProperty ;
+                              rdfs:domain radsport_ontologie:Radrennen, radsport_ontologie:Etappe ;
+                              rdfs:range schema:Place .
+
+<http://www.clelicy.de/radsport_ontologie#hügelige_Etappe> a owl:Class, owl:NamedIndividual, <http://www.clelicy.de/radsport_ontologie#hügelige_Etappe> ;
+                                                            rdfs:subClassOf radsport_ontologie:Etappencharakterisitik .
+
+radsport_ontologie:istEtappe a owl:DatatypeProperty ;
+                             rdfs:domain radsport_ontologie:Etappe ;
+                             rdfs:range xsd:int .
+
+radsport_ontologie:nimmtTeil a owl:ObjectProperty ;
+                             rdfs:domain radsport_ontologie:Radrennen ;
+                             rdfs:range radsport_ontologie:Mannschaft .
+
+radsport_ontologie:trugTrikot a owl:ObjectProperty ;
+                              rdfs:domain schema:Person ;
+                              rdfs:range radsport_ontologie:Wertungstrikot .
+
+radsport_ontologie:wirdAusgetragenSeit a owl:DatatypeProperty ;
+                                       rdfs:domain radsport_ontologie:Radrennen ;
+                                       rdfs:range xsd:date .
+
+radsport_ontologie:wurdeAusgetragenBis a owl:DatatypeProperty ;
+                                       rdfs:domain radsport_ontologie:Radrennen ;
+                                       rdfs:range xsd:date .
+
+radsport_ontologie:wurdeVerliehenBei a owl:ObjectProperty ;
+                                     rdfs:domain radsport_ontologie:Wertungstrikot ;
+                                     rdfs:range radsport_ontologie:Radrennen .
