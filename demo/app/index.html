@@ -378,6 +378,17 @@
           return r;
         };
 
+        $scope.createInsertRequest = function(graph, prefixMapping) {
+          var result;
+          if(graph) {
+            var quads = jassa.sparql.QuadUtils.triplesToQuads(graph);
+            result = '' + new jassa.sparql.UpdateDataInsert(quads);
+          } else {
+            result = '';
+          }
+          return result;
+        };
+
         // Code mirror setup
         $scope.editorOptions = {
           ttl: {
@@ -399,6 +410,8 @@
             geocoder: 'http://geocoder.org/geometry#',
             ogc: 'http://www.opengis.net/ont/geosparql#'
           };
+
+          // build triples
           var s = jassa.rdf.NodeFactory.createUri(locationUri);
           var p = jassa.rdf.NodeFactory.createUri(prefix.geom + 'geometry');
           var newLocationUri = jassa.rdf.NodeFactory.createUri(prefix.geocoder + extractLocationsLocalPart(locationUri));
@@ -409,11 +422,14 @@
           var quad1 = new jassa.sparql.Quad(null, s, p, newLocationUri);
           var quad2 = new jassa.sparql.Quad(null, newLocationUri, asWKT, newLocationGeocode);
 
+          // check, if already information are stored
           var locationUriInGraph = _.find($scope.sparqlUpdateTriples, function(quad) {
             return quad.subject.uri === locationUri;
           });
 
           console.log('hasLocationInfo', locationUriInGraph);
+
+          // no information for location if locationUriInGraph is undefined
           if (locationUriInGraph === undefined) {
             // insert new quads
             $scope.sparqlUpdateTriples.push(quad1);
@@ -421,14 +437,13 @@
           } else {
             // delete old qudas and insert new quads
             $scope.sparqlUpdateTriples = _.reject($scope.sparqlUpdateTriples, function(quad) {
+              // return all except the old wkt value for the location
               return quad.subject.uri === newLocationUri.uri;
             });
             $scope.sparqlUpdateTriples.push(quad2);
           }
           console.log('sparqlUpdateTriples', $scope.sparqlUpdateTriples);
         };
-
-
 
         $scope.copy = angular.copy;
 
@@ -532,14 +547,14 @@
       <div
         ui-codemirror="editorOptions.ttl"
         ng-model="turtle"
-        sync-template="{{graphToTurtle(sparqlUpdateTriples)}}">
+        sync-template="{{graphToTurtle(sparqlUpdateTriples, prefixMapping)}}">
       </div>
       <hr />
       <span>Added:</span>
       <div
         ui-codemirror="editorOptions.ttl"
         ng-model="turtle"
-        sync-template="{{UpdateUtils.createInsertRequest(sparqlUpdateTriples)}}"
+        sync-template="{{createInsertRequest(sparqlUpdateTriples, prefixMapping)}}"
         ></div>
     </tab>
   </tabset>
