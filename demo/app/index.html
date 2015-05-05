@@ -390,9 +390,10 @@
           }
         };
 
+        $scope.refreshOutput = true;
         $scope.sparqlUpdateTriples = [];
 
-        var addNewTriplesForLocation = function(locationUri, geocodeAsWkt) {
+        var addNewTriplesForLocation = function(locationUri, geocodeAsWkt) {;
           var prefix = {
             geom: 'http://geovocab.org/geometry#',
             geocoder: 'http://geocoder.org/geometry#',
@@ -419,8 +420,11 @@
             $scope.sparqlUpdateTriples.push(quad2);
           } else {
             // delete old qudas and insert new quads
+            $scope.sparqlUpdateTriples = _.reject($scope.sparqlUpdateTriples, function(quad) {
+              return quad.subject.uri === newLocationUri.uri;
+            });
+            $scope.sparqlUpdateTriples.push(quad2);
           }
-
           console.log('sparqlUpdateTriples', $scope.sparqlUpdateTriples);
         };
 
