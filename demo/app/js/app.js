@@ -87,6 +87,14 @@ angular.module(
   .controller('AppCtrl', ['$scope', '$dddi', '$location', '$anchorScroll', '$timeout', '$http', '$q',
     function($scope, $dddi, $location, $anchorScroll, $timeout, $http, $q) {
 
+      $scope.selectDataset = function(dataset) {
+        $scope.selectedDataset = dataset;
+        $scope.rowCollection = [];
+        $scope.locationSuggestions = {};
+        $scope.location = '';
+        $scope.sparqlUpdateTriples = [];
+      };
+
       var concept = new jassa.sparql.Concept(
         jassa.sparql.ElementString.create('?s a <http://fp7-pp.publicdata.eu/ontology/Partner>'),
         jassa.rdf.NodeFactory.createVar('s'));
@@ -128,45 +136,94 @@ angular.module(
       });
 
 
-      var store = new jassa.sponate.StoreFacade(sparqlService, {
-        // add new prefixes
-        'fp7o': 'http://fp7-pp.publicdata.eu/ontology/'
-      });
+      $scope.fp7 = function() {
+        var sparqlService = jassa.service.SparqlServiceBuilder
+          .http('http://fp7-pp.publicdata.eu/sparql', ['http://fp7-pp.publicdata.eu/'], {type: 'POST'})
+          .create();
 
+        $scope.selectDataset('fp7');
+        var store = new jassa.sponate.StoreFacade(sparqlService, {
+          // add new prefixes
+          'fp7o': 'http://fp7-pp.publicdata.eu/ontology/'
+        });
 
-      store.addMap({
-        name: 'projects',
-        template: [{
-          id: '?s',
-          name: '?l',
-          address: {
-            id: '?address',
-            city: '?city',
-            country: '?country',
-            geocoding: {
-              city: '',
-              country: ''
+        store.addMap({
+          name: 'projects',
+          template: [{
+            id: '?s',
+            name: '?l',
+            address: {
+              id: '?address',
+              city: '?city',
+              country: '?country',
+              geocoding: {
+                city: '',
+                country: ''
+              }
             }
-          }
-        }],
-        from: '?s a fp7o:Partner ; rdfs:label ?l ; fp7o:address ?address . ?address fp7o:city ?city . ?address fp7o:country ?country'
-      });
+          }],
+          from: '?s a fp7o:Partner ; rdfs:label ?l ; fp7o:address ?address . ?address fp7o:city ?city . ?address fp7o:country ?country'
+        });
 
-      store.projects.getListService().fetchItems(null, 20).then(function(entries) {
-        entries.then(function(response) {
-          console.log('ENTRIES: ', response);
+        store.projects.getListService().fetchItems(null, 20).then(function(entries) {
+          entries.then(function(response) {
+            console.log('ENTRIES: ', response);
 
-          var cityUri = response[0].val.address.city;
-          var cityLabel = cityUri.substr(cityUri.lastIndexOf('/') + 1);
-          console.log('Address for first entry: ', cityLabel);
-          var promise = restServiceRequest('Nominatim', cityLabel);
-          promise.then(function(response) {
-            console.log('Possible values for first city for first entry', response);
-          });
-          $scope.rowCollection = response;
-          $scope.displayedCollection = [].concat($scope.rowCollection);
-        })
-      });
+            var cityUri = response[0].val.address.city;
+            var cityLabel = cityUri.substr(cityUri.lastIndexOf('/') + 1);
+            console.log('Address for first entry: ', cityLabel);
+            var promise = restServiceRequest('Nominatim', cityLabel);
+            promise.then(function(response) {
+              console.log('Possible values for first city for first entry', response);
+            });
+            $scope.rowCollection = response;
+            $scope.displayedCollection = [].concat($scope.rowCollection);
+          })
+        });
+      };
+
+      $scope.cycling = function() {
+        var sparqlService = jassa.service.SparqlServiceBuilder
+          .http('http://localhost/ontowiki/sparql', ['http://www.clelicy.de/Radsport_Ontologie'], {type: 'POST'})
+          .virtFix()
+          .create();
+
+        $scope.selectDataset('cycling');
+        var store = new jassa.sponate.StoreFacade(sparqlService, {
+          // add new prefixes
+        });
+
+        store.addMap({
+          name: 'cycling',
+          template: [{
+            id: '?stageLocation',
+            address: {
+              id: '?stageLocation',
+              city: '?stageLocation',
+              geocoding: {
+                city: ''
+              }
+            }
+          }],
+          from: '?stageLocation a <http://schema.org/Place>'
+        });
+
+        store.cycling.getListService().fetchItems(null, 20).then(function(entries) {
+          entries.then(function(response) {
+            console.log('ENTRIES: ', response);
+
+            var stageUri = response[0].val.address.id;
+            var stageLabel = stageUri.substr(stageUri.lastIndexOf('/') + 1);
+            console.log('Address for first entry: ', stageLabel);
+            var promise = restServiceRequest('Nominatim', stageLabel);
+            promise.then(function(response) {
+              console.log('Possible values for first city for first entry', response);
+            });
+            $scope.rowCollection = response;
+            $scope.displayedCollection = [].concat($scope.rowCollection);
+          })
+        });
+      };
 
       var defaultServices = {
         Nominatim: {
@@ -217,10 +274,7 @@ angular.module(
         return ret.join('&');
       };
 
-      $scope.rowCollection = [];
-      $scope.locationSuggestions = {};
 
-      $scope.location = '';
 
       var extractLocation = function(string) {
         return string.substr(string.lastIndexOf('/') + 1).replace(/-/gi,' ');
@@ -294,8 +348,7 @@ angular.module(
         }
       };
 
-      $scope.refreshOutput = true;
-      $scope.sparqlUpdateTriples = [];
+
 
       var addNewTriplesForLocation = function(locationUri, geocodeAsWkt) {;
         var prefix = {
