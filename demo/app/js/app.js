@@ -262,7 +262,6 @@ angular.module(
 
       $scope.runGeocoderForLocation = function(locationUri) {
         var extractedLocation = $scope.extractLocation(locationUri);
-        console.log('extractedLocation', $scope.extractedLocation);
         if (!$scope.locationSuggestions.hasOwnProperty(locationUri)) {
           console.log('yes, ' + locationUri + ' was already fetched.');
           $scope.restServiceRequest('Nominatim', extractedLocation).then(function(geocoderResult) {
