@@ -330,7 +330,7 @@ angular.module(
         var newLocationUri = jassa.rdf.NodeFactory.createUri(prefix.geocoder + $scope.extractLocationsLocalPart(locationUri));
 
         var asWKT = jassa.rdf.NodeFactory.createUri(prefix.ogc + 'asWKT');
-        var newLocationGeocode = jassa.rdf.NodeFactory.createPlainLiteral(geocodeAsWkt);
+        var newLocationGeocode = jassa.rdf.NodeFactory.createTypedLiteralFromValue(geocodeAsWkt, 'http://www.opengis.net/ont/sf#wktLiteral');
 
         var quad1 = new jassa.sparql.Quad(null, s, p, newLocationUri);
         var quad2 = new jassa.sparql.Quad(null, newLocationUri, asWKT, newLocationGeocode);
