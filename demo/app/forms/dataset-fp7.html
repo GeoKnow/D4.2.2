@@ -70,13 +70,18 @@
 
         <div ui-codemirror="editorOptions.ttl"
              ng-model="turtle"
-             sync-template="{{graphToTurtle(sparqlUpdateTriples, prefixMapping)}}">
+             sync-template="{{graphToTurtle(sparqlUpdateTriples.source.concat(sparqlUpdateTriples.geocoder), prefixMapping)}}">
         </div>
         <hr />
-        <span>Added:</span>
+        <span>Added for Source-Endpoint:</span>
         <div ui-codemirror="editorOptions.ttl"
              ng-model="turtle"
-             sync-template="{{createInsertRequest(sparqlUpdateTriples, prefixMapping)}}">
+             sync-template="{{createInsertRequest(sparqlUpdateTriples.source, prefixMapping)}}">
+        </div>
+        <span>Added for Geocoder-Endpoint:</span>
+        <div ui-codemirror="editorOptions.ttl"
+             ng-model="turtle"
+             sync-template="{{createInsertRequest(sparqlUpdateTriples.geocoder, prefixMapping)}}">
         </div>
     </tab>
 </tabset>

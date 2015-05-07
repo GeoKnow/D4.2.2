@@ -94,7 +94,10 @@ angular.module(
           $scope.rowCollection = [];
           $scope.locationSuggestions = {};
           $scope.location = '';
-          $scope.sparqlUpdateTriples = [];
+          $scope.sparqlUpdateTriples = {
+            source: [],
+            geocoder: []
+          };
 
           if (dataset === 'fp7') {
             fp7($scope);
@@ -324,7 +327,7 @@ angular.module(
         // build triples
         var s = jassa.rdf.NodeFactory.createUri(locationUri);
         var p = jassa.rdf.NodeFactory.createUri(prefix.geom + 'geometry');
-        var newLocationUri = jassa.rdf.NodeFactory.createUri(prefix.geocoder + extractLocationsLocalPart(locationUri));
+        var newLocationUri = jassa.rdf.NodeFactory.createUri(prefix.geocoder + $scope.extractLocationsLocalPart(locationUri));
 
         var asWKT = jassa.rdf.NodeFactory.createUri(prefix.ogc + 'asWKT');
         var newLocationGeocode = jassa.rdf.NodeFactory.createPlainLiteral(geocodeAsWkt);
@@ -333,7 +336,7 @@ angular.module(
         var quad2 = new jassa.sparql.Quad(null, newLocationUri, asWKT, newLocationGeocode);
 
         // check, if already information are stored
-        var locationUriInGraph = _.find($scope.sparqlUpdateTriples, function(quad) {
+        var locationUriInGraph = _.find($scope.sparqlUpdateTriples.source, function(quad) {
           return quad.subject.uri === locationUri;
         });
 
@@ -342,15 +345,15 @@ angular.module(
         // no information for location if locationUriInGraph is undefined
         if (locationUriInGraph === undefined) {
           // insert new quads
-          $scope.sparqlUpdateTriples.push(quad1);
-          $scope.sparqlUpdateTriples.push(quad2);
+          $scope.sparqlUpdateTriples.source.push(quad1);
+          $scope.sparqlUpdateTriples.geocoder.push(quad2);
         } else {
           // delete old qudas and insert new quads
-          $scope.sparqlUpdateTriples = _.reject($scope.sparqlUpdateTriples, function(quad) {
+          $scope.sparqlUpdateTriples.geocoder = _.reject($scope.sparqlUpdateTriples.geocoder, function(quad) {
             // return all except the old wkt value for the location
             return quad.subject.uri === newLocationUri.uri;
           });
-          $scope.sparqlUpdateTriples.push(quad2);
+          $scope.sparqlUpdateTriples.geocoder.push(quad2);
         }
         console.log('sparqlUpdateTriples', $scope.sparqlUpdateTriples);
       };
