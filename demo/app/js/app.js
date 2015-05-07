@@ -320,7 +320,7 @@ angular.module(
       var addNewTriplesForLocation = function(locationUri, geocodeAsWkt) {;
         var prefix = {
           geom: 'http://geovocab.org/geometry#',
-          geocoder: 'http://geocoder.org/geometry#',
+          geocoder: 'http://www.clelicy.de/geocodes/Geocoder_Results/',
           ogc: 'http://www.opengis.net/ont/geosparql#'
         };
 
@@ -329,11 +329,16 @@ angular.module(
         var p = jassa.rdf.NodeFactory.createUri(prefix.geom + 'geometry');
         var newLocationUri = jassa.rdf.NodeFactory.createUri(prefix.geocoder + $scope.extractLocationsLocalPart(locationUri));
 
+        // as wkt
         var asWKT = jassa.rdf.NodeFactory.createUri(prefix.ogc + 'asWKT');
         var newLocationGeocode = jassa.rdf.NodeFactory.createTypedLiteralFromValue(geocodeAsWkt, 'http://www.opengis.net/ont/sf#wktLiteral');
 
+        // type
+        var typeClass = jassa.rdf.NodeFactory.createUri('http://www.clelicy.de/geocodes/results');
+
         var quad1 = new jassa.sparql.Quad(null, s, p, newLocationUri);
         var quad2 = new jassa.sparql.Quad(null, newLocationUri, asWKT, newLocationGeocode);
+        var quad3 = new jassa.sparql.Quad(null, newLocationUri, jassa.vocab.rdf.type, typeClass);
 
         // check, if already information are stored
         var locationUriInGraph = _.find($scope.sparqlUpdateTriples.source, function(quad) {
@@ -347,6 +352,7 @@ angular.module(
           // insert new quads
           $scope.sparqlUpdateTriples.source.push(quad1);
           $scope.sparqlUpdateTriples.geocoder.push(quad2);
+          $scope.sparqlUpdateTriples.geocoder.push(quad3);
         } else {
           // delete old qudas and insert new quads
           $scope.sparqlUpdateTriples.geocoder = _.reject($scope.sparqlUpdateTriples.geocoder, function(quad) {
@@ -354,8 +360,40 @@ angular.module(
             return quad.subject.uri === newLocationUri.uri;
           });
           $scope.sparqlUpdateTriples.geocoder.push(quad2);
+          $scope.sparqlUpdateTriples.geocoder.push(quad3);
         }
         console.log('sparqlUpdateTriples', $scope.sparqlUpdateTriples);
+      };
+
+      var updateService = new jassa.service.SparqlUpdateHttp('http://localhost:8890/sparql', ['http://www.clelicy.de/geocodes']);
+
+      $scope.UpdateUtils = jassa.service.UpdateUtils;
+
+      console.log('UpdateUtils: ', $scope.UpdateUtils);
+
+      /*
+      $scope.performUpdate = function() {
+        //var updateService = $scope.active.service.updateService;
+        console.log('perform update');
+        var x = jassa.service.UpdateUtils.performUpdate(updateService, $scope.sparqlUpdateTriples.geocoder, {})
+          .then(function() {
+
+          });
+
+      };
+      */
+
+      $scope.performUpdate = function() {
+        var str;
+
+        str = $scope.createInsertRequest($scope.sparqlUpdateTriples.geocoder);
+        var p1 = updateService.createUpdateExecution(str).execUpdate();
+        Promise.all([p1]).then(function () {
+          alert('Success - I will now refresh - ya, will make that nicer soon');
+          location.reload();
+        }, function () {
+          alert('Failed');
+        });
       };
 
       $scope.copy = angular.copy;
