@@ -87,12 +87,23 @@ angular.module(
   .controller('AppCtrl', ['$scope', '$dddi', '$location', '$anchorScroll', '$timeout', '$http', '$q',
     function($scope, $dddi, $location, $anchorScroll, $timeout, $http, $q) {
 
-      $scope.selectDataset = function(dataset) {
-        $scope.selectedDataset = dataset;
-        $scope.rowCollection = [];
-        $scope.locationSuggestions = {};
-        $scope.location = '';
-        $scope.sparqlUpdateTriples = [];
+      $scope.select = function(dataset) {
+        var datasetSelected = dataset ? true : false;
+        if (datasetSelected) {
+          $scope.selectedDataset = dataset;
+          $scope.rowCollection = [];
+          $scope.locationSuggestions = {};
+          $scope.location = '';
+          $scope.sparqlUpdateTriples = [];
+
+          if (dataset === 'fp7') {
+            fp7($scope);
+          }
+          if (dataset === 'cycling') {
+            cycling($scope);
+          }
+        }
+
       };
 
       var concept = new jassa.sparql.Concept(
@@ -136,95 +147,6 @@ angular.module(
       });
 
 
-      $scope.fp7 = function() {
-        var sparqlService = jassa.service.SparqlServiceBuilder
-          .http('http://fp7-pp.publicdata.eu/sparql', ['http://fp7-pp.publicdata.eu/'], {type: 'POST'})
-          .create();
-
-        $scope.selectDataset('fp7');
-        var store = new jassa.sponate.StoreFacade(sparqlService, {
-          // add new prefixes
-          'fp7o': 'http://fp7-pp.publicdata.eu/ontology/'
-        });
-
-        store.addMap({
-          name: 'projects',
-          template: [{
-            id: '?s',
-            name: '?l',
-            address: {
-              id: '?address',
-              city: '?city',
-              country: '?country',
-              geocoding: {
-                city: '',
-                country: ''
-              }
-            }
-          }],
-          from: '?s a fp7o:Partner ; rdfs:label ?l ; fp7o:address ?address . ?address fp7o:city ?city . ?address fp7o:country ?country'
-        });
-
-        store.projects.getListService().fetchItems(null, 20).then(function(entries) {
-          entries.then(function(response) {
-            console.log('ENTRIES: ', response);
-
-            var cityUri = response[0].val.address.city;
-            var cityLabel = cityUri.substr(cityUri.lastIndexOf('/') + 1);
-            console.log('Address for first entry: ', cityLabel);
-            var promise = restServiceRequest('Nominatim', cityLabel);
-            promise.then(function(response) {
-              console.log('Possible values for first city for first entry', response);
-            });
-            $scope.rowCollection = response;
-            $scope.displayedCollection = [].concat($scope.rowCollection);
-          })
-        });
-      };
-
-      $scope.cycling = function() {
-        var sparqlService = jassa.service.SparqlServiceBuilder
-          .http('http://localhost/ontowiki/sparql', ['http://www.clelicy.de/Radsport_Ontologie'], {type: 'POST'})
-          .virtFix()
-          .create();
-
-        $scope.selectDataset('cycling');
-        var store = new jassa.sponate.StoreFacade(sparqlService, {
-          // add new prefixes
-        });
-
-        store.addMap({
-          name: 'cycling',
-          template: [{
-            id: '?stageLocation',
-            address: {
-              id: '?stageLocation',
-              city: '?stageLocation',
-              geocoding: {
-                city: ''
-              }
-            }
-          }],
-          from: '?stageLocation a <http://schema.org/Place>'
-        });
-
-        store.cycling.getListService().fetchItems(null, 20).then(function(entries) {
-          entries.then(function(response) {
-            console.log('ENTRIES: ', response);
-
-            var stageUri = response[0].val.address.id;
-            var stageLabel = stageUri.substr(stageUri.lastIndexOf('/') + 1);
-            console.log('Address for first entry: ', stageLabel);
-            var promise = restServiceRequest('Nominatim', stageLabel);
-            promise.then(function(response) {
-              console.log('Possible values for first city for first entry', response);
-            });
-            $scope.rowCollection = response;
-            $scope.displayedCollection = [].concat($scope.rowCollection);
-          })
-        });
-      };
-
       var defaultServices = {
         Nominatim: {
           label: 'Nominatim',
@@ -253,7 +175,7 @@ angular.module(
         }
       };
 
-      var restServiceRequest = function(service, keyword) {
+      $scope.restServiceRequest = function(service, keyword) {
         var queryString = queryData(defaultServices[service].data).replace(/%KEYWORD%/gi,keyword);
         return $http({
           'method': 'GET',
@@ -276,12 +198,54 @@ angular.module(
 
 
 
-      var extractLocation = function(string) {
-        return string.substr(string.lastIndexOf('/') + 1).replace(/-/gi,' ');
+      // return location without special chars - _
+      $scope.extractLocation = function(string) {
+
+        var slashPostion = string.lastIndexOf('/') + 1;
+        var hashPostion = string.lastIndexOf('#') + 1;
+
+        // EXAMPLE
+        // string www.clelicy.de/radsport_ontologie#Mont_Ventoux
+        // slashPosition 15
+        // hashPosition 34
+        // hash is the last special char (/ or #)
+
+        // last special char = /
+        if (slashPostion > hashPostion) {
+          return string.substr(string.lastIndexOf('/') + 1).replace(/-|_|'|’/gi,' ');
+        }
+        // last special char = #
+        if (hashPostion > slashPostion) {
+          return string.substr(string.lastIndexOf('#') + 1).replace(/-|_|'|’/gi,' ');
+        }
+
+        // default
+        return null;
+
       };
 
-      var extractLocationsLocalPart = function(string) {
-        return string.substr(string.lastIndexOf('/') + 1);
+      // return location with special chars
+      $scope.extractLocationsLocalPart = function(string) {
+        var slashPostion = string.lastIndexOf('/') + 1;
+        var hashPostion = string.lastIndexOf('#') + 1;
+
+        // EXAMPLE
+        // string www.clelicy.de/radsport_ontologie#Mont_Ventoux
+        // slashPosition 15
+        // hashPosition 34
+        // hash is the last special char (/ or #)
+
+        // last special char = /
+        if (slashPostion > hashPostion) {
+          return string.substr(string.lastIndexOf('/') + 1);
+        }
+        // last special char = #
+        if (hashPostion > slashPostion) {
+          return string.substr(string.lastIndexOf('#') + 1);
+        }
+
+        // default
+        return null;
       };
 
       var setGeocodeForSameLocations = function(location, geocode) {
@@ -297,10 +261,11 @@ angular.module(
       };
 
       $scope.runGeocoderForLocation = function(locationUri) {
-        var extractedLocation = extractLocation(locationUri);
+        var extractedLocation = $scope.extractLocation(locationUri);
+        console.log('extractedLocation', $scope.extractedLocation);
         if (!$scope.locationSuggestions.hasOwnProperty(locationUri)) {
           console.log('yes, ' + locationUri + ' was already fetched.');
-          restServiceRequest('Nominatim', extractedLocation).then(function(geocoderResult) {
+          $scope.restServiceRequest('Nominatim', extractedLocation).then(function(geocoderResult) {
             console.log('Possible values for first city for first entry ' + locationUri, geocoderResult);
             $scope.locationSuggestions[locationUri] = geocoderResult.data;
           });
