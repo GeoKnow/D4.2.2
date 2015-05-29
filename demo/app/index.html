@@ -22,6 +22,8 @@
 
     <!-- endbuild -->
 
+    <link rel="stylesheet" href="css/style.css" />
+
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -76,24 +78,30 @@
                     <li><a href="#"></a></li>
                 </ul>
             </div>
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dataset <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li ng-click="select('fp7')"><a href="#">FP7</a></li>
-                        <li ng-click="select('cycling')"><a href="#">Cycling</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-click="performUpdate()"><button type="button" class="btn btn-default navbar-btn">Perform Update</button></li>
-            </ul>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dataset <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-click="selectDataset('fp7')"><a href="#">FP7</a></li>
+                            <li ng-click="selectDataset('cycling')"><a href="#">Cycling</a></li>
+                        </ul>
+                    </li>
+                    <li ng-click="config()"><a href="#" role="button">Configuration</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="padding-right: 15px;">
+                    <li ng-show="selectedDataset != null" ng-click="performUpdate()"><button type="button" class="btn btn-primary navbar-btn">Perform Update</button></li>
+                    <li ng-show="configuration" ng-click="save()"><button type="button" class="btn btn-primary navbar-btn">Save</button></li>
+                </ul>
+            </div>
+
         </div>
     </nav>
 </header>
 <div style="padding-top: 60px;" class="container-fluid">
-    <div ng-if="selectedDataset === 'fp7'" ng-include="'forms/dataset-fp7.html'"></div>
-    <div ng-if="selectedDataset === 'cycling'" ng-include="'forms/dataset-cycling.html'"></div>
+    <div ng-if="selectedDataset === 'fp7'" ng-include="'templates/dataset-fp7.html'"></div>
+    <div ng-if="selectedDataset === 'cycling'" ng-include="'templates/dataset-cycling.html'"></div>
+    <div ng-if="configuration === true" ng-include="'templates/config.html'"></div>
 </div>
 </body>
 

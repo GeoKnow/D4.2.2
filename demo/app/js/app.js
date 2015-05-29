@@ -87,7 +87,11 @@ angular.module(
   .controller('AppCtrl', ['$scope', '$dddi', '$location', '$anchorScroll', '$timeout', '$http', '$q',
     function($scope, $dddi, $location, $anchorScroll, $timeout, $http, $q) {
 
-      $scope.select = function(dataset) {
+      $scope.configuration = false;
+
+      $scope.selectDataset = function(dataset) {
+        $scope.configuration = false;
+
         var datasetSelected = dataset ? true : false;
         if (datasetSelected) {
           $scope.selectedDataset = dataset;
@@ -106,7 +110,11 @@ angular.module(
             cycling($scope);
           }
         }
+      };
 
+      $scope.config = function() {
+        $scope.selectedDataset = null;
+        $scope.configuration = true;
       };
 
       var concept = new jassa.sparql.Concept(
