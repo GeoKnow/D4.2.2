@@ -9,3 +9,6 @@ npm-debug.log
 delete-when-refactored
 .idea
 *.iml
+
+deptree.txt
+

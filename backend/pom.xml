@@ -242,14 +242,14 @@
             <!-- <artifactId>maven-war-plugin</artifactId> -->
             <!-- <version>${maven-war-plugin.version}</version> -->
             <!-- </plugin> -->
-
+<!--
             <plugin>
                 <groupId>org.jboss.tattletale</groupId>
                 <artifactId>tattletale-maven</artifactId>
                 <version>1.1.0.Final</version>
                 <executions>
                     <execution>
-                        <phase>verify</phase> <!-- needs to run after WAR package has been built -->
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -266,22 +266,14 @@
                         <profile>java6</profile>
                     </profiles>
                     <failOnWarn>true</failOnWarn>
-                    <!-- excluding some jars, if jar name contains any of these strings
-                        it won't be analyzed -->
                     <excludes>
                         <exclude>postgresql-</exclude>
                         <exclude>commons-beanutils-</exclude>
                         <exclude>xmlpull-</exclude>
-
-                        <!-- TODO These conflicts should be resolved -->
-                        <!-- <exclude>stax-api-</exclude> -->
-                        <!-- <exclude>xml-apis-</exclude> -->
-
-                        <!-- <exclude>commons-logging-</exclude> -->
-
                     </excludes>
                 </configuration>
             </plugin>
+-->
         </plugins>
     </build>
 
