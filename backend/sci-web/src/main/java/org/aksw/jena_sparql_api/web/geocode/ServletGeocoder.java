@@ -1,4 +1,4 @@
-package org.aksw.facete2.web.api.geocode;
+package org.aksw.jena_sparql_api.web.geocode;
 
 import java.util.List;
 
