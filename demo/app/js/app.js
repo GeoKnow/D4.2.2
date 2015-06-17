@@ -87,6 +87,28 @@ angular.module(
   .controller('AppCtrl', ['$scope', '$dddi', '$location', '$anchorScroll', '$timeout', '$http', '$q',
     function($scope, $dddi, $location, $anchorScroll, $timeout, $http, $q) {
 
+      // set setup
+      var hasCustomSetup = window.localStorage['setup'] !== undefined ? true : false;
+      if (hasCustomSetup) {
+        $scope.setup = JSON.parse(window.localStorage['setup']);
+      } else {
+        $scope.setup = {
+          inputSourceEndpoint: 'http://localhost/sparql',
+          inputTargetEndpoint: 'http://localhost/sparql',
+          inputPrefixes: '',
+          inputConcept: '',
+          selGeocoderService: 'nominatim',
+          pushChangesets: 'false'
+        };
+      }
+
+      $scope.$watchCollection(function () {
+        return $scope.setup;
+      }, function (newValue) {
+        console.log('setup', newValue);
+        window.localStorage['setup'] = JSON.stringify(newValue);
+      });
+
       $scope.configuration = false;
 
       $scope.selectDataset = function(dataset) {
