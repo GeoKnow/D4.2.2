@@ -2,7 +2,7 @@ jassa = new Jassa(Promise, $.ajax);
 
 angular.module(
   'jassa.ui.edit.demo.widgets',
-  ['dddi', 'smart-table', 'ngSanitize', 'ui.jassa', 'ui.bootstrap', 'ui.select', 'ui.jassa.edit', 'ui.jassa.rex', 'ui.codemirror', 'ngAnimate'])
+  ['dddi', 'smart-table', 'ngSanitize', 'ui.jassa', 'ui.bootstrap', 'ui.select', 'ui.jassa.edit', 'ui.jassa.rex', 'ui.codemirror', 'ngAnimate', 'ngStorage'])
 
   .config(function(GeocodingLookupProvider) {
     /*
@@ -84,29 +84,30 @@ angular.module(
     });
   })
 
-  .controller('AppCtrl', ['$scope', '$dddi', '$location', '$anchorScroll', '$timeout', '$http', '$q',
-    function($scope, $dddi, $location, $anchorScroll, $timeout, $http, $q) {
+  .controller('AppCtrl', ['$scope', '$dddi', '$location', '$anchorScroll', '$timeout', '$http', '$q', '$localStorage',
+    function($scope, $dddi, $location, $anchorScroll, $timeout, $http, $q, $localStorage) {
 
-      // set setup
-      var hasCustomSetup = window.localStorage['setup'] !== undefined ? true : false;
-      if (hasCustomSetup) {
-        $scope.setup = JSON.parse(window.localStorage['setup']);
-      } else {
-        $scope.setup = {
+      $scope.$storage = $localStorage.$default({
+        setup: {
+          // GENERAL
           inputSourceEndpoint: 'http://localhost/sparql',
           inputTargetEndpoint: 'http://localhost/sparql',
           inputPrefixes: '',
           inputConcept: '',
           selGeocoderService: 'nominatim',
-          pushChangesets: 'false'
-        };
-      }
-
-      $scope.$watchCollection(function () {
-        return $scope.setup;
-      }, function (newValue) {
-        console.log('setup', newValue);
-        window.localStorage['setup'] = JSON.stringify(newValue);
+          pushChangesets: 'false',
+          // DELETION
+          clearExistingGeometryLiterals: 'true',
+          delGeovocab: {
+            wgs84: false,
+            geosparql: false,
+            geoowl: false
+          },
+          inputDeletionPath: '',
+          // INSERTION
+          insertGeovocab: 'wgs84',
+          inputInsertPath: ''
+        }
       });
 
       $scope.configuration = false;

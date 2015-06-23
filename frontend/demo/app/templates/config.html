@@ -5,44 +5,44 @@
           <div class="form-group">
             <label for="InputSourceEndpoint">Source-Endpoint</label>
             <div class="input-group">
-              <input type="text" class="form-control" name="InputSourceEndpoint" id="InputSourceEndpoint" placeholder="Insert source endpoint" ng-model="setup.inputSourceEndpoint"/>
+              <input type="text" class="form-control" name="InputSourceEndpoint" id="InputSourceEndpoint" placeholder="Insert source endpoint" ng-model="$storage.setup.inputSourceEndpoint"/>
               <span class="input-group-addon"><span class="glyphicon glyphicon-bookmark"></span></span>
             </div>
           </div>
           <div class="form-group">
             <label for="InputTargetEndpoint">Target-Endpoint</label>
             <div class="input-group">
-              <input type="text" class="form-control" name="InputTargetEndpoint" id="InputTargetEndpoint" placeholder="Insert target endpoint" ng-model="setup.inputTargetEndpoint"/>
+              <input type="text" class="form-control" name="InputTargetEndpoint" id="InputTargetEndpoint" placeholder="Insert target endpoint" ng-model="$storage.setup.inputTargetEndpoint"/>
               <span class="input-group-addon"><span class="glyphicon glyphicon-bookmark"></span></span>
             </div>
           </div>
           <div class="form-group">
             <label for="InputPrefixes">Custom prefixes</label>
             <div class="input-group">
-              <input type="text" class="form-control" name="InputPrefixes" id="InputPrefixes" placeholder="ns0:iri0 ns1:iri1" ng-model="setup.inputPrefixes" />
+              <input type="text" class="form-control" name="InputPrefixes" id="InputPrefixes" placeholder="ns0:iri0 ns1:iri1" ng-model="$storage.setup.inputPrefixes" />
               <span class="input-group-addon"><span class="glyphicon glyphicon-bookmark"></span></span>
             </div>
           </div>
           <div class="form-group">
             <label for="InputConcept">Concept</label>
             <div class="input-group">
-              <input type="text" class="form-control" name="InputConcept" id="InputConcept" placeholder="The concept for the resources which to geocode" ng-model="setup.inputConcept"/>
+              <input type="text" class="form-control" name="InputConcept" id="InputConcept" placeholder="The concept for the resources which to geocode" ng-model="$storage.setup.inputConcept"/>
               <span class="input-group-addon"><span class="glyphicon glyphicon-bookmark"></span></span>
             </div>
           </div>
           <div class="form-group">
             <label for="sel-geocoder-service">Geocoder-Services</label>
-            <select class="form-control" id="sel-geocoder-service" ng-model="setup.selGeocoderService">
+            <select class="form-control" id="sel-geocoder-service" ng-model="$storage.setup.selGeocoderService">
               <option value="nominatim">Nominatim</option>
             </select>
           </div>
           <div class="form-group">
             <label>Push changesets</label>
             <div class="radio">
-              <label><input type="radio" name="changeset" ng-model="setup.pushChangesets" value="true" />true</label>
+              <label><input type="radio" name="changeset" ng-model="$storage.setup.pushChangesets" value="true" />true</label>
             </div>
             <div class="radio">
-              <label><input type="radio" name="changeset" ng-model="setup.pushChangesets" value="false" />false</label>
+              <label><input type="radio" name="changeset" ng-model="$storage.setup.pushChangesets" value="false" />false</label>
             </div>
           </div>
       </form>
@@ -55,22 +55,22 @@
         <div class="form-group">
           <label>Clear existing geometry literals in case a new one is selected.</label>
           <div class="radio">
-            <label><input type="radio" name="changeset" checked="checked" />true</label>
+            <label><input type="radio" name="clearExistingGeometryLiterals" ng-model="$storage.setup.clearExistingGeometryLiterals" value="true" />true</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="changeset" />false</label>
+            <label><input type="radio" name="clearExistingGeometryLiterals" ng-model="$storage.setup.clearExistingGeometryLiterals" value="false" />false</label>
           </div>
         </div>
         <div class="form-group">
           <label>Geo-vocab</label>
           <div class="checkbox">
-            <label><input type="checkbox" value="" />wgs84</label>
+            <label><input type="checkbox" ng-model="$storage.setup.delGeovocab.wgs84" ng-true-value="true" ng-false-value="false" />wgs84</label>
           </div>
           <div class="checkbox">
-            <label><input type="checkbox" value="" />GeoSPARQL</label>
+            <label><input type="checkbox" ng-model="$storage.setup.delGeovocab.geosparql" ng-true-value="true" ng-false-value="false" />GeoSPARQL</label>
           </div>
           <div class="checkbox">
-            <label><input type="checkbox" value="" />GeoOWL</label>
+            <label><input type="checkbox" ng-model="$storage.setup.delGeovocab.geoowl" ng-true-value="true" ng-false-value="false" />GeoOWL</label>
           </div>
         </div>
       </form>
@@ -78,7 +78,7 @@
         <div class="form-group">
           <label for="InputDeletionPath">Paths</label>
           <div class="input-group">
-            <input type="text" class="form-control" name="InputDeletionPath" id="InputDeletionPath" placeholder="(owl:sameAs), (ns0:address, ns0:city), (ns0:address, ns0:city, owl:sameAs)" />
+            <input type="text" class="form-control" name="InputDeletionPath" id="InputDeletionPath" placeholder="(owl:sameAs), (ns0:address, ns0:city), (ns0:address, ns0:city, owl:sameAs)" ng-model="$storage.setup.inputDeletionPath" />
             <span class="input-group-addon"><span class="glyphicon glyphicon-trash"></span></span>
           </div>
         </div>
@@ -92,13 +92,13 @@
         <div class="form-group">
           <label>Geo-vocab</label>
           <div class="radio">
-            <label><input type="radio" name="geovocab" checked="checked" />wgs84</label>
+            <label><input type="radio" name="insertGeovocab" ng-model="$storage.setup.insertGeovocab" value="wgs84" />wgs84</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="geovocab" />GeoSPARQL</label>
+            <label><input type="radio" name="insertGeovocab" ng-model="$storage.setup.insertGeovocab" value="geosparql" />GeoSPARQL</label>
           </div>
           <div class="radio">
-            <label><input type="radio" name="geovocab" />GeoOWL</label>
+            <label><input type="radio" name="insertGeovocab" ng-model="$storage.setup.insertGeovocab" value="geoowl" />GeoOWL</label>
           </div>
         </div>
       </form>
@@ -106,7 +106,7 @@
         <div class="form-group">
           <label for="InputInsertPath">Paths</label>
           <div class="input-group">
-            <input type="text" class="form-control" name="InputInsertPath" id="InputInsertPath" placeholder="(ns0:address, ns0:city, owl:sameAs)" />
+            <input type="text" class="form-control" name="InputInsertPath" id="InputInsertPath" placeholder="(ns0:address, ns0:city, owl:sameAs)" ng-model="$storage.setup.inputInsertPath" />
             <span class="input-group-addon"><span class="glyphicon glyphicon-plus"></span></span>
           </div>
         </div>
