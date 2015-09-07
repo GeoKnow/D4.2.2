@@ -348,6 +348,7 @@ angular.module(
 
 
 
+
       var addNewTriplesForLocation = function(locationUri, geocodeAsWkt) {;
         var prefix = {
           geom: 'http://geovocab.org/geometry#',
@@ -426,6 +427,40 @@ angular.module(
           alert('Failed');
         });
       };
+
+      $scope.performNominatimLookup = function() {
+        var extractedLocation = 'Leipzig Karl-Liebknecht-Str. 100';
+        $scope.restServiceRequest('Nominatim', extractedLocation).then(function(geocoderResult) {
+          console.log('Possible values for first city for first entry ' + extractedLocation, geocoderResult);
+          // graph
+          var graph = new jassa.rdf.GraphImpl();
+          // rdf_type
+          var s = jassa.rdf.NodeFactory.createUri("http://example.org/ontology/geocodeCandidateResource1");
+          var p = jassa.vocab.rdf.type;
+          var o = jassa.rdf.NodeFactory.createUri("http://example.org/ontology/GeoCodeCandidateResult");
+          var tType = new jassa.rdf.Triple(s, p, o);
+          // timestamp
+
+
+          console.log("Triple: " + triple);
+          graph.add(triple);
+          console.log('Graph', graph.toArray());
+        });
+      };
+
+      $scope.getRandomID = function(){
+        return Math.floor((Math.random()*6)+1);
+      };
+
+      $scope.toJSON = function(json) {
+        return JSON.stringify(json);
+      };
+
+      $scope.getDateTime = function() {
+        return moment().format();
+      };
+
+
 
       $scope.copy = angular.copy;
 

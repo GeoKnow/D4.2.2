@@ -37,8 +37,8 @@
     <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
     <script src="bower_components/angular-ui-sortable/sortable.js"></script>
     <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
-    <script src="bower_components/jassa-ui-angular/jassa-ui-angular-tpls.js"></script>
     <script src="bower_components/dddi-angular/dddi-angular.js"></script>
+    <script src="bower_components/jassa-ui-angular/jassa-ui-angular-tpls.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
     <script src="bower_components/sifter/sifter.js"></script>
     <script src="bower_components/microplugin/src/microplugin.js"></script>
@@ -90,8 +90,13 @@
                     </li>
                     <li ng-click="config()"><a href="#" role="button">Configuration</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" style="padding-right: 15px;">
-                    <li ng-show="selectedDataset != null" ng-click="performUpdate()"><button type="button" class="btn btn-primary navbar-btn">Perform Update</button></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-show="selectedDataset != null" ng-click="performUpdate()" style="padding-right: 5px;">
+                        <button type="button" class="btn btn-primary navbar-btn">Perform Update</button>
+                    </li>
+                    <li ng-click="performNominatimLookup()" style="padding-right: 5px;">
+                        <button type="button" class="btn btn-primary navbar-btn">Nominatim Lookup</button>
+                    </li>
                     <!--li ng-show="configuration" ng-click="loadDefaultConfiguration()"><button type="button" class="btn btn-warning navbar-btn">Load Default Configuration</button></li-->
                 </ul>
             </div>

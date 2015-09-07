@@ -1,3 +1,4 @@
+<div rex-context rex-prefix="'gcr: http://example.org/ontology/gcr/ glr: http://example.org/ontology/glr/ nominatim: http://example.org/ontology/nominatim/ geo: http://www.w3.org/2003/01/geo/wgs84_pos# geosparql: http://www.opengis.net/ont/geosparql#'">
 <tabset justified="true">
     <tab heading="FP7">
         <div class="row">
@@ -53,6 +54,33 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
+                        <!-- GENERATE JSON FOR RESULT BY REX -->
+                        <div rex-subject="'http://example.org/ontology/GeocodeCandidateResource/0'" rex-typeof="'http://example.org/ontology/GeoCodeCandidateResult'">
+                            <input type="hidden" ng-model="ex04.test" rex-predicate="'gcr:timestamp'" rex-literal="'2015-09-07T00:00:00-00:00'" rex-datatype="'xsd:dateTime'" />
+                            <input type="hidden" ng-model="ex04.test" rex-predicate="'gcr:locationString'" rex-literal="extractLocation(row.val.address.city)" />
+                            <div rex-predicate="'gcr:hasGeocoderLookupResult'">
+                                <div ng-repeat="location in locationSuggestions[row.val.address.city] track by $index" ng-init="term={}" rex-deleted="deleted">
+                                    
+                                    
+                                    <input type="hidden"  rex-object="{{$index + 1}}" rex-iri="'glr:'+{{location.osm_id}}" />
+                                    
+                                    <div rex-subject="'glr:'+{{location.osm_id}}" rex-typeof="'glr:GeocodeLookupResult'">
+                                        <input type="hidden" ng-model="term" rex-predicate="'nominatim:asWKT'" rex-literal="''+location.geotext" rex-datatype="'geosparql:wktLiteral'"/>
+                                        <input type="hidden" ng-model="term" rex-predicate="'glr:json'" rex-literal="toJSON(location)" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'nominatim:osmType'" rex-literal="''+location.osm_type" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'nominatim:placeID'" rex-literal="''+location.place_id" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'nominatim:osmID'" rex-literal="''+location.osm_id" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'nominatim:boundingBox'" rex-literal="'['+location.boundingbox+']'" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'geo:lat'" rex-literal="''+location.lat" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'geo:lon'" rex-literal="''+location.lon" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'nominatim:class'" rex-literal="''+location.class" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'nominatim:type'" rex-literal="''+location.type" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'nominatim:amenity'" rex-literal="''+location.amenity" />
+                                        <input type="hidden" ng-model="term" rex-predicate="'rdfs:label'" rex-literal="''+location.display_name" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
@@ -70,7 +98,7 @@
 
         <div ui-codemirror="editorOptions.ttl"
              ng-model="turtle"
-             sync-template="{{graphToTurtle(sparqlUpdateTriples.source.concat(sparqlUpdateTriples.geocoder), prefixMapping)}}">
+             sync-template="{{graphToTurtle(rexContext.graph, prefixMapping)}}">
         </div>
         <hr />
         <span>Added for Source-Endpoint:</span>
@@ -85,3 +113,4 @@
         </div>
     </tab>
 </tabset>
+</div>
