@@ -54,7 +54,7 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                        <!-- GENERATE JSON FOR RESULT BY REX -->
+                        <!-- CONVERT NOMINATIM RESULT TO RDF VIA REX -->
                         <div rex-subject="'http://example.org/ontology/GeocodeCandidateResource/0'" rex-typeof="'http://example.org/ontology/GeoCodeCandidateResult'">
                             <input type="hidden" ng-model="ex04.test" rex-predicate="'gcr:timestamp'" rex-literal="'2015-09-07T00:00:00-00:00'" rex-datatype="'xsd:dateTime'" />
                             <input type="hidden" ng-model="ex04.test" rex-predicate="'gcr:locationString'" rex-literal="extractLocation(row.val.address.city)" />
